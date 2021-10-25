@@ -1,3 +1,8 @@
+# Lab1 Teoria Kompilacji
+# Norbert Wolniak, Maciej Skoczeń
+# Gr. Wtorek 14.20 A
+
+
 import ply.lex as lex
 
 matrix_binary = ['PLUS_MATRIX', 'MINUS_MATRIX', 'MULTIPLY_MATRIX', 'DIVIDE_MATRIX']
