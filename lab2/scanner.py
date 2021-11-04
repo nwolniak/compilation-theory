@@ -113,7 +113,7 @@ def t_INT(t):
 
 
 def t_STRING(t):
-    r'(\'.*\') | (\".*\")'
+    r'(\'[^\'\n]*\') | (\"[^"\n]*\")'
     return t
 
 
@@ -124,7 +124,7 @@ def t_ID(t):
 
 
 def t_newline(t):
-    r'\n+?'  # non-greedy
+    r'\n+'
     t.lexer.lineno += len(t.value)
 
 
