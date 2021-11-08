@@ -5,10 +5,11 @@ tokens = scanner.tokens
 tokens.remove("COMMENT") # Nie obsługujemy komentarzy, bo ich nie ma
 
 precedence = (
-    # ("nonassoc", 'IF'),
-    # ("nonassoc", 'ELSE'),
-    ("left", '+', '-'),
-    ("left", '*', '/'),
+    ("right", '=', "ADDITION_ASSIGN", "SUBTRACTION_ASSIGN", "MULTIPLICATION_ASSIGN", "DIVISION_ASSIGN"),
+    ("left", "NOT_EQUAL", "EQUAL"),
+    ("left", "LESS_OR_EQUAL", "GREATER_OR_EQUAL", '>', '<'),
+    ("left", '+', '-', 'PLUS_MATRIX', 'MINUS_MATRIX'),
+    ("left", '*', '/', 'MULTIPLY_MATRIX', 'DIVIDE_MATRIX'),
 )
 
 
@@ -85,13 +86,12 @@ def p_instruction_print(p):
 
 # Operacje przypisania
 def p_assignments(p):
-    """assignment : ID '[' operations_list ']' '=' operations
-                  | ID '=' operations
-                  | ID '=' operations_matrix
-                  | identifier_value ADDITION_ASSIGN operations
-                  | identifier_value MULTIPLICATION_ASSIGN operations
-                  | identifier_value SUBTRACTION_ASSIGN operations
-                  | identifier_value DIVISION_ASSIGN operations
+    """assignment : ID '[' operations_list ']' '=' assignment_operations
+                  | ID '=' assignment_operations
+                  | identifier_value ADDITION_ASSIGN assignment_operations
+                  | identifier_value MULTIPLICATION_ASSIGN assignment_operations
+                  | identifier_value SUBTRACTION_ASSIGN assignment_operations
+                  | identifier_value DIVISION_ASSIGN assignment_operations
                   | ID '=' STRING
                   | ID '=' array
                   | ID '=' ZEROS '(' INT ')'
@@ -108,6 +108,11 @@ def p_condition(p):
                  | condition EQUAL operations
                  | operations
                  | '(' condition ')' """
+
+# Operacje binarne albo macierzowe, które mogą wystąpić po prawej stronie przypisania
+def p_assignment_operations(p):
+    """assignment_operations : operations
+                             | operations_matrix """
 
 # Listowanie operatorów binarnych
 def p_operations_list(p):
