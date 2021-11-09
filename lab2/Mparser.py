@@ -1,3 +1,8 @@
+# Lab1 Teoria Kompilacji
+# Norbert Wolniak, Maciej Skoczeń
+# Gr. Wtorek 14.20 A
+
+
 import scanner
 import ply.yacc as yacc
 
@@ -39,7 +44,7 @@ def p_instruction(p):
                    | RETURN ';'
                    | ';' """
 
-# Instrukcje będąca w bloku pętli.
+# Instrukcje będące w bloku pętli.
 def p_instructions_in_loop(p):
     """instructions_in_loop : instructions_in_loop instruction_in_loop
                             | instructions_in_loop '{' instructions_in_loop '}'
@@ -100,12 +105,12 @@ def p_assignments(p):
 
 # Instrukcje warunkowe
 def p_condition(p):
-    """condition : condition '>' operations
-                 | condition '<' operations
-                 | condition LESS_OR_EQUAL operations
-                 | condition GREATER_OR_EQUAL operations
-                 | condition NOT_EQUAL operations
-                 | condition EQUAL operations
+    """condition : operations '>' operations
+                 | operations '<' operations
+                 | operations LESS_OR_EQUAL operations
+                 | operations GREATER_OR_EQUAL operations
+                 | operations NOT_EQUAL operations
+                 | operations EQUAL operations
                  | operations
                  | '(' condition ')' """
 
