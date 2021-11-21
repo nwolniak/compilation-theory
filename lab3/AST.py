@@ -95,6 +95,10 @@ class FloatNum(Node):
     def __init__(self, value):
         self.value = value
 
+class String(Node):
+    def __init__(self, value):
+        self.value = value
+
 
 class Zeros(Node):
     def __init__(self, value):

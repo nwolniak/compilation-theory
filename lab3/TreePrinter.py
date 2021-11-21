@@ -86,14 +86,20 @@ class TreePrinter:
     @addToClass(AST.BinExpr)
     def printTree(self, indent=0):
         TreePrinter.printRow(indent, self.op)
-        self.left.printTree(indent + 1)
-        self.right.printTree(indent + 1)
+        if self.left:
+            self.left.printTree(indent + 1)
+        if self.right:
+            self.right.printTree(indent + 1)
 
     @addToClass(AST.IntNum)
     def printTree(self, indent=0):
         TreePrinter.printRow(indent, self.value)
 
     @addToClass(AST.FloatNum)
+    def printTree(self, indent=0):
+        TreePrinter.printRow(indent, self.value)
+
+    @addToClass(AST.String)
     def printTree(self, indent=0):
         TreePrinter.printRow(indent, self.value)
 

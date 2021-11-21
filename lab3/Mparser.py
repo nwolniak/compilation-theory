@@ -1,7 +1,7 @@
 # Lab2 Teoria Kompilacji
 # Norbert Wolniak, Maciej Skoczeń
 # Gr. Wtorek 14.20 A
-
+import string
 
 import scanner
 import ply.yacc as yacc
@@ -169,7 +169,7 @@ def p_operations_binary(p):
 # Uwzględnienie unarnego minusa
 def p_operation_uminus(p):
     """operations : '-' operations %prec UMINUS"""
-    p[0] = AST.BinExpr(p[1], None, p[3])
+    p[0] = AST.BinExpr(p[1], None, p[2])
 
 
 # Wartość
@@ -177,6 +177,7 @@ def p_value(p):
     """value : identifier
              | FLOAT
              | INT
+             | STRING
              | ZEROS '(' INT ')'
              | ONES '(' INT ')'
              | EYE '(' INT ')' """
@@ -184,6 +185,8 @@ def p_value(p):
         p[0] = AST.IntNum(p[1])
     elif isinstance(p[1], float):
         p[0] = AST.FloatNum(p[1])
+    elif isinstance(p[1], type("")):
+        p[0] = AST.String(p[1])
     elif p[1] == "zeros":
         p[0] = AST.Zeros(p[3])
     elif p[1] == "ones":

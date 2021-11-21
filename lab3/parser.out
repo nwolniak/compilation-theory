@@ -1,9 +1,5 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    STRING
-
 Grammar
 
 Rule 0     S' -> program
@@ -53,27 +49,28 @@ Rule 43    operations -> - operations
 Rule 44    value -> identifier
 Rule 45    value -> FLOAT
 Rule 46    value -> INT
-Rule 47    value -> ZEROS ( INT )
-Rule 48    value -> ONES ( INT )
-Rule 49    value -> EYE ( INT )
-Rule 50    identifier -> ID
-Rule 51    identifier -> identifier array
-Rule 52    identifier -> identifier '
-Rule 53    array -> [ array_list ]
-Rule 54    array -> [ operations_list ]
-Rule 55    array_list -> array_list , array
-Rule 56    array_list -> array
-Rule 57    operations_list -> operations_list , operations
-Rule 58    operations_list -> operations
+Rule 47    value -> STRING
+Rule 48    value -> ZEROS ( INT )
+Rule 49    value -> ONES ( INT )
+Rule 50    value -> EYE ( INT )
+Rule 51    identifier -> ID
+Rule 52    identifier -> identifier array
+Rule 53    identifier -> identifier '
+Rule 54    array -> [ array_list ]
+Rule 55    array -> [ operations_list ]
+Rule 56    array_list -> array_list , array
+Rule 57    array_list -> array
+Rule 58    operations_list -> operations_list , operations
+Rule 59    operations_list -> operations
 
 Terminals, with rules where they appear
 
-'                    : 40 52
-(                    : 17 18 20 39 40 47 48 49
-)                    : 17 18 20 39 40 47 48 49
+'                    : 40 53
+(                    : 17 18 20 39 40 48 49 50
+)                    : 17 18 20 39 40 48 49 50
 *                    : 27
 +                    : 25
-,                    : 55 57
+,                    : 56 58
 -                    : 26 43
 /                    : 28
 :                    : 19
@@ -88,47 +85,47 @@ DIVIDE_MATRIX        : 38
 DIVISION_ASSIGN      : 16
 ELSE                 : 18
 EQUAL                : 34
-EYE                  : 49
+EYE                  : 50
 FLOAT                : 45
 FOR                  : 19
 GREATER_OR_EQUAL     : 31
-ID                   : 19 50
+ID                   : 19 51
 IF                   : 17 18
-INT                  : 46 47 48 49
+INT                  : 46 48 49 50
 LESS_OR_EQUAL        : 32
 MINUS_MATRIX         : 36
 MULTIPLICATION_ASSIGN : 14
 MULTIPLY_MATRIX      : 37
 NOT_EQUAL            : 33
-ONES                 : 48
+ONES                 : 49
 PLUS_MATRIX          : 35
 PRINT                : 21
 RETURN               : 22 23
-STRING               : 
+STRING               : 47
 SUBTRACTION_ASSIGN   : 15
 WHILE                : 20
-ZEROS                : 47
-[                    : 53 54
-]                    : 53 54
+ZEROS                : 48
+[                    : 54 55
+]                    : 54 55
 error                : 
 {                    : 11
 }                    : 11
 
 Nonterminals, with rules where they appear
 
-array                : 41 51 55 56
-array_list           : 53 55
+array                : 41 52 56 57
+array_list           : 54 56
 assignment           : 4
 condition            : 17 18 20
-identifier           : 12 13 14 15 16 44 51 52
+identifier           : 12 13 14 15 16 44 52 53
 instruction          : 2 17 18 18 19 20
 instruction_if       : 5
 instruction_loop     : 6
 instruction_print    : 7
 instruction_return   : 8
 instructions         : 1 2 11
-operations           : 12 13 14 15 16 19 19 22 24 25 25 26 26 27 27 28 28 29 29 30 30 31 31 32 32 33 33 34 34 35 35 36 36 37 37 38 38 39 40 43 57 58
-operations_list      : 21 54 57
+operations           : 12 13 14 15 16 19 19 22 24 25 25 26 26 27 27 28 28 29 29 30 30 31 31 32 32 33 33 34 34 35 35 36 36 37 37 38 38 39 40 43 58 59
+operations_list      : 21 55 58
 program              : 0
 value                : 42
 
@@ -185,9 +182,9 @@ state 2
     (21) instruction_print -> . PRINT operations_list
     (22) instruction_return -> . RETURN operations
     (23) instruction_return -> . RETURN
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     $end            reduce using rule 1 (program -> instructions .)
     BREAK           shift and go to state 9
@@ -322,10 +319,10 @@ state 12
     (14) assignment -> identifier . MULTIPLICATION_ASSIGN operations
     (15) assignment -> identifier . SUBTRACTION_ASSIGN operations
     (16) assignment -> identifier . DIVISION_ASSIGN operations
-    (51) identifier -> identifier . array
-    (52) identifier -> identifier . '
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (52) identifier -> identifier . array
+    (53) identifier -> identifier . '
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
 
     =               shift and go to state 25
     ADDITION_ASSIGN shift and go to state 26
@@ -354,43 +351,43 @@ state 14
 
 state 15
 
-    (50) identifier -> ID .
+    (51) identifier -> ID .
 
-    =               reduce using rule 50 (identifier -> ID .)
-    ADDITION_ASSIGN reduce using rule 50 (identifier -> ID .)
-    MULTIPLICATION_ASSIGN reduce using rule 50 (identifier -> ID .)
-    SUBTRACTION_ASSIGN reduce using rule 50 (identifier -> ID .)
-    DIVISION_ASSIGN reduce using rule 50 (identifier -> ID .)
-    '               reduce using rule 50 (identifier -> ID .)
-    [               reduce using rule 50 (identifier -> ID .)
-    +               reduce using rule 50 (identifier -> ID .)
-    -               reduce using rule 50 (identifier -> ID .)
-    *               reduce using rule 50 (identifier -> ID .)
-    /               reduce using rule 50 (identifier -> ID .)
-    >               reduce using rule 50 (identifier -> ID .)
-    <               reduce using rule 50 (identifier -> ID .)
-    GREATER_OR_EQUAL reduce using rule 50 (identifier -> ID .)
-    LESS_OR_EQUAL   reduce using rule 50 (identifier -> ID .)
-    NOT_EQUAL       reduce using rule 50 (identifier -> ID .)
-    EQUAL           reduce using rule 50 (identifier -> ID .)
-    PLUS_MATRIX     reduce using rule 50 (identifier -> ID .)
-    MINUS_MATRIX    reduce using rule 50 (identifier -> ID .)
-    MULTIPLY_MATRIX reduce using rule 50 (identifier -> ID .)
-    DIVIDE_MATRIX   reduce using rule 50 (identifier -> ID .)
-    ,               reduce using rule 50 (identifier -> ID .)
-    ;               reduce using rule 50 (identifier -> ID .)
-    ]               reduce using rule 50 (identifier -> ID .)
-    )               reduce using rule 50 (identifier -> ID .)
-    :               reduce using rule 50 (identifier -> ID .)
-    BREAK           reduce using rule 50 (identifier -> ID .)
-    CONTINUE        reduce using rule 50 (identifier -> ID .)
-    {               reduce using rule 50 (identifier -> ID .)
-    IF              reduce using rule 50 (identifier -> ID .)
-    FOR             reduce using rule 50 (identifier -> ID .)
-    WHILE           reduce using rule 50 (identifier -> ID .)
-    PRINT           reduce using rule 50 (identifier -> ID .)
-    RETURN          reduce using rule 50 (identifier -> ID .)
-    ID              reduce using rule 50 (identifier -> ID .)
+    =               reduce using rule 51 (identifier -> ID .)
+    ADDITION_ASSIGN reduce using rule 51 (identifier -> ID .)
+    MULTIPLICATION_ASSIGN reduce using rule 51 (identifier -> ID .)
+    SUBTRACTION_ASSIGN reduce using rule 51 (identifier -> ID .)
+    DIVISION_ASSIGN reduce using rule 51 (identifier -> ID .)
+    '               reduce using rule 51 (identifier -> ID .)
+    [               reduce using rule 51 (identifier -> ID .)
+    +               reduce using rule 51 (identifier -> ID .)
+    -               reduce using rule 51 (identifier -> ID .)
+    *               reduce using rule 51 (identifier -> ID .)
+    /               reduce using rule 51 (identifier -> ID .)
+    >               reduce using rule 51 (identifier -> ID .)
+    <               reduce using rule 51 (identifier -> ID .)
+    GREATER_OR_EQUAL reduce using rule 51 (identifier -> ID .)
+    LESS_OR_EQUAL   reduce using rule 51 (identifier -> ID .)
+    NOT_EQUAL       reduce using rule 51 (identifier -> ID .)
+    EQUAL           reduce using rule 51 (identifier -> ID .)
+    PLUS_MATRIX     reduce using rule 51 (identifier -> ID .)
+    MINUS_MATRIX    reduce using rule 51 (identifier -> ID .)
+    MULTIPLY_MATRIX reduce using rule 51 (identifier -> ID .)
+    DIVIDE_MATRIX   reduce using rule 51 (identifier -> ID .)
+    ,               reduce using rule 51 (identifier -> ID .)
+    ;               reduce using rule 51 (identifier -> ID .)
+    ]               reduce using rule 51 (identifier -> ID .)
+    )               reduce using rule 51 (identifier -> ID .)
+    :               reduce using rule 51 (identifier -> ID .)
+    BREAK           reduce using rule 51 (identifier -> ID .)
+    CONTINUE        reduce using rule 51 (identifier -> ID .)
+    {               reduce using rule 51 (identifier -> ID .)
+    IF              reduce using rule 51 (identifier -> ID .)
+    FOR             reduce using rule 51 (identifier -> ID .)
+    WHILE           reduce using rule 51 (identifier -> ID .)
+    PRINT           reduce using rule 51 (identifier -> ID .)
+    RETURN          reduce using rule 51 (identifier -> ID .)
+    ID              reduce using rule 51 (identifier -> ID .)
 
 
 state 16
@@ -403,8 +400,8 @@ state 16
 state 17
 
     (21) instruction_print -> PRINT . operations_list
-    (57) operations_list -> . operations_list , operations
-    (58) operations_list -> . operations
+    (58) operations_list -> . operations_list , operations
+    (59) operations_list -> . operations
     (25) operations -> . operations + operations
     (26) operations -> . operations - operations
     (27) operations -> . operations * operations
@@ -424,26 +421,28 @@ state 17
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
     operations_list                shift and go to state 36
@@ -475,17 +474,18 @@ state 18
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     ;               reduce using rule 23 (instruction_return -> RETURN .)
     (               shift and go to state 39
@@ -493,12 +493,13 @@ state 18
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    operations                     shift and go to state 48
+    operations                     shift and go to state 49
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
@@ -617,11 +618,11 @@ state 24
     (21) instruction_print -> . PRINT operations_list
     (22) instruction_return -> . RETURN operations
     (23) instruction_return -> . RETURN
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
-    }               shift and go to state 49
+    }               shift and go to state 50
     BREAK           shift and go to state 9
     CONTINUE        shift and go to state 10
     {               shift and go to state 11
@@ -662,30 +663,32 @@ state 25
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
     identifier                     shift and go to state 42
-    operations                     shift and go to state 50
+    operations                     shift and go to state 51
     array                          shift and go to state 40
     value                          shift and go to state 41
 
@@ -711,30 +714,32 @@ state 26
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
     identifier                     shift and go to state 42
-    operations                     shift and go to state 51
+    operations                     shift and go to state 52
     array                          shift and go to state 40
     value                          shift and go to state 41
 
@@ -760,30 +765,32 @@ state 27
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
     identifier                     shift and go to state 42
-    operations                     shift and go to state 52
+    operations                     shift and go to state 53
     array                          shift and go to state 40
     value                          shift and go to state 41
 
@@ -809,30 +816,32 @@ state 28
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
     identifier                     shift and go to state 42
-    operations                     shift and go to state 53
+    operations                     shift and go to state 54
     array                          shift and go to state 40
     value                          shift and go to state 41
 
@@ -858,125 +867,127 @@ state 29
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
     identifier                     shift and go to state 42
-    operations                     shift and go to state 54
+    operations                     shift and go to state 55
     array                          shift and go to state 40
     value                          shift and go to state 41
 
 state 30
 
-    (51) identifier -> identifier array .
+    (52) identifier -> identifier array .
 
-    =               reduce using rule 51 (identifier -> identifier array .)
-    ADDITION_ASSIGN reduce using rule 51 (identifier -> identifier array .)
-    MULTIPLICATION_ASSIGN reduce using rule 51 (identifier -> identifier array .)
-    SUBTRACTION_ASSIGN reduce using rule 51 (identifier -> identifier array .)
-    DIVISION_ASSIGN reduce using rule 51 (identifier -> identifier array .)
-    '               reduce using rule 51 (identifier -> identifier array .)
-    [               reduce using rule 51 (identifier -> identifier array .)
-    +               reduce using rule 51 (identifier -> identifier array .)
-    -               reduce using rule 51 (identifier -> identifier array .)
-    *               reduce using rule 51 (identifier -> identifier array .)
-    /               reduce using rule 51 (identifier -> identifier array .)
-    >               reduce using rule 51 (identifier -> identifier array .)
-    <               reduce using rule 51 (identifier -> identifier array .)
-    GREATER_OR_EQUAL reduce using rule 51 (identifier -> identifier array .)
-    LESS_OR_EQUAL   reduce using rule 51 (identifier -> identifier array .)
-    NOT_EQUAL       reduce using rule 51 (identifier -> identifier array .)
-    EQUAL           reduce using rule 51 (identifier -> identifier array .)
-    PLUS_MATRIX     reduce using rule 51 (identifier -> identifier array .)
-    MINUS_MATRIX    reduce using rule 51 (identifier -> identifier array .)
-    MULTIPLY_MATRIX reduce using rule 51 (identifier -> identifier array .)
-    DIVIDE_MATRIX   reduce using rule 51 (identifier -> identifier array .)
-    ,               reduce using rule 51 (identifier -> identifier array .)
-    ;               reduce using rule 51 (identifier -> identifier array .)
-    ]               reduce using rule 51 (identifier -> identifier array .)
-    )               reduce using rule 51 (identifier -> identifier array .)
-    :               reduce using rule 51 (identifier -> identifier array .)
-    BREAK           reduce using rule 51 (identifier -> identifier array .)
-    CONTINUE        reduce using rule 51 (identifier -> identifier array .)
-    {               reduce using rule 51 (identifier -> identifier array .)
-    IF              reduce using rule 51 (identifier -> identifier array .)
-    FOR             reduce using rule 51 (identifier -> identifier array .)
-    WHILE           reduce using rule 51 (identifier -> identifier array .)
-    PRINT           reduce using rule 51 (identifier -> identifier array .)
-    RETURN          reduce using rule 51 (identifier -> identifier array .)
-    ID              reduce using rule 51 (identifier -> identifier array .)
+    =               reduce using rule 52 (identifier -> identifier array .)
+    ADDITION_ASSIGN reduce using rule 52 (identifier -> identifier array .)
+    MULTIPLICATION_ASSIGN reduce using rule 52 (identifier -> identifier array .)
+    SUBTRACTION_ASSIGN reduce using rule 52 (identifier -> identifier array .)
+    DIVISION_ASSIGN reduce using rule 52 (identifier -> identifier array .)
+    '               reduce using rule 52 (identifier -> identifier array .)
+    [               reduce using rule 52 (identifier -> identifier array .)
+    +               reduce using rule 52 (identifier -> identifier array .)
+    -               reduce using rule 52 (identifier -> identifier array .)
+    *               reduce using rule 52 (identifier -> identifier array .)
+    /               reduce using rule 52 (identifier -> identifier array .)
+    >               reduce using rule 52 (identifier -> identifier array .)
+    <               reduce using rule 52 (identifier -> identifier array .)
+    GREATER_OR_EQUAL reduce using rule 52 (identifier -> identifier array .)
+    LESS_OR_EQUAL   reduce using rule 52 (identifier -> identifier array .)
+    NOT_EQUAL       reduce using rule 52 (identifier -> identifier array .)
+    EQUAL           reduce using rule 52 (identifier -> identifier array .)
+    PLUS_MATRIX     reduce using rule 52 (identifier -> identifier array .)
+    MINUS_MATRIX    reduce using rule 52 (identifier -> identifier array .)
+    MULTIPLY_MATRIX reduce using rule 52 (identifier -> identifier array .)
+    DIVIDE_MATRIX   reduce using rule 52 (identifier -> identifier array .)
+    ,               reduce using rule 52 (identifier -> identifier array .)
+    ;               reduce using rule 52 (identifier -> identifier array .)
+    ]               reduce using rule 52 (identifier -> identifier array .)
+    )               reduce using rule 52 (identifier -> identifier array .)
+    :               reduce using rule 52 (identifier -> identifier array .)
+    BREAK           reduce using rule 52 (identifier -> identifier array .)
+    CONTINUE        reduce using rule 52 (identifier -> identifier array .)
+    {               reduce using rule 52 (identifier -> identifier array .)
+    IF              reduce using rule 52 (identifier -> identifier array .)
+    FOR             reduce using rule 52 (identifier -> identifier array .)
+    WHILE           reduce using rule 52 (identifier -> identifier array .)
+    PRINT           reduce using rule 52 (identifier -> identifier array .)
+    RETURN          reduce using rule 52 (identifier -> identifier array .)
+    ID              reduce using rule 52 (identifier -> identifier array .)
 
 
 state 31
 
-    (52) identifier -> identifier ' .
+    (53) identifier -> identifier ' .
 
-    =               reduce using rule 52 (identifier -> identifier ' .)
-    ADDITION_ASSIGN reduce using rule 52 (identifier -> identifier ' .)
-    MULTIPLICATION_ASSIGN reduce using rule 52 (identifier -> identifier ' .)
-    SUBTRACTION_ASSIGN reduce using rule 52 (identifier -> identifier ' .)
-    DIVISION_ASSIGN reduce using rule 52 (identifier -> identifier ' .)
-    '               reduce using rule 52 (identifier -> identifier ' .)
-    [               reduce using rule 52 (identifier -> identifier ' .)
-    +               reduce using rule 52 (identifier -> identifier ' .)
-    -               reduce using rule 52 (identifier -> identifier ' .)
-    *               reduce using rule 52 (identifier -> identifier ' .)
-    /               reduce using rule 52 (identifier -> identifier ' .)
-    >               reduce using rule 52 (identifier -> identifier ' .)
-    <               reduce using rule 52 (identifier -> identifier ' .)
-    GREATER_OR_EQUAL reduce using rule 52 (identifier -> identifier ' .)
-    LESS_OR_EQUAL   reduce using rule 52 (identifier -> identifier ' .)
-    NOT_EQUAL       reduce using rule 52 (identifier -> identifier ' .)
-    EQUAL           reduce using rule 52 (identifier -> identifier ' .)
-    PLUS_MATRIX     reduce using rule 52 (identifier -> identifier ' .)
-    MINUS_MATRIX    reduce using rule 52 (identifier -> identifier ' .)
-    MULTIPLY_MATRIX reduce using rule 52 (identifier -> identifier ' .)
-    DIVIDE_MATRIX   reduce using rule 52 (identifier -> identifier ' .)
-    ,               reduce using rule 52 (identifier -> identifier ' .)
-    ;               reduce using rule 52 (identifier -> identifier ' .)
-    ]               reduce using rule 52 (identifier -> identifier ' .)
-    )               reduce using rule 52 (identifier -> identifier ' .)
-    :               reduce using rule 52 (identifier -> identifier ' .)
-    BREAK           reduce using rule 52 (identifier -> identifier ' .)
-    CONTINUE        reduce using rule 52 (identifier -> identifier ' .)
-    {               reduce using rule 52 (identifier -> identifier ' .)
-    IF              reduce using rule 52 (identifier -> identifier ' .)
-    FOR             reduce using rule 52 (identifier -> identifier ' .)
-    WHILE           reduce using rule 52 (identifier -> identifier ' .)
-    PRINT           reduce using rule 52 (identifier -> identifier ' .)
-    RETURN          reduce using rule 52 (identifier -> identifier ' .)
-    ID              reduce using rule 52 (identifier -> identifier ' .)
+    =               reduce using rule 53 (identifier -> identifier ' .)
+    ADDITION_ASSIGN reduce using rule 53 (identifier -> identifier ' .)
+    MULTIPLICATION_ASSIGN reduce using rule 53 (identifier -> identifier ' .)
+    SUBTRACTION_ASSIGN reduce using rule 53 (identifier -> identifier ' .)
+    DIVISION_ASSIGN reduce using rule 53 (identifier -> identifier ' .)
+    '               reduce using rule 53 (identifier -> identifier ' .)
+    [               reduce using rule 53 (identifier -> identifier ' .)
+    +               reduce using rule 53 (identifier -> identifier ' .)
+    -               reduce using rule 53 (identifier -> identifier ' .)
+    *               reduce using rule 53 (identifier -> identifier ' .)
+    /               reduce using rule 53 (identifier -> identifier ' .)
+    >               reduce using rule 53 (identifier -> identifier ' .)
+    <               reduce using rule 53 (identifier -> identifier ' .)
+    GREATER_OR_EQUAL reduce using rule 53 (identifier -> identifier ' .)
+    LESS_OR_EQUAL   reduce using rule 53 (identifier -> identifier ' .)
+    NOT_EQUAL       reduce using rule 53 (identifier -> identifier ' .)
+    EQUAL           reduce using rule 53 (identifier -> identifier ' .)
+    PLUS_MATRIX     reduce using rule 53 (identifier -> identifier ' .)
+    MINUS_MATRIX    reduce using rule 53 (identifier -> identifier ' .)
+    MULTIPLY_MATRIX reduce using rule 53 (identifier -> identifier ' .)
+    DIVIDE_MATRIX   reduce using rule 53 (identifier -> identifier ' .)
+    ,               reduce using rule 53 (identifier -> identifier ' .)
+    ;               reduce using rule 53 (identifier -> identifier ' .)
+    ]               reduce using rule 53 (identifier -> identifier ' .)
+    )               reduce using rule 53 (identifier -> identifier ' .)
+    :               reduce using rule 53 (identifier -> identifier ' .)
+    BREAK           reduce using rule 53 (identifier -> identifier ' .)
+    CONTINUE        reduce using rule 53 (identifier -> identifier ' .)
+    {               reduce using rule 53 (identifier -> identifier ' .)
+    IF              reduce using rule 53 (identifier -> identifier ' .)
+    FOR             reduce using rule 53 (identifier -> identifier ' .)
+    WHILE           reduce using rule 53 (identifier -> identifier ' .)
+    PRINT           reduce using rule 53 (identifier -> identifier ' .)
+    RETURN          reduce using rule 53 (identifier -> identifier ' .)
+    ID              reduce using rule 53 (identifier -> identifier ' .)
 
 
 state 32
 
-    (53) array -> [ . array_list ]
-    (54) array -> [ . operations_list ]
-    (55) array_list -> . array_list , array
-    (56) array_list -> . array
-    (57) operations_list -> . operations_list , operations
-    (58) operations_list -> . operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> [ . array_list ]
+    (55) array -> [ . operations_list ]
+    (56) array_list -> . array_list , array
+    (57) array_list -> . array
+    (58) operations_list -> . operations_list , operations
+    (59) operations_list -> . operations
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (25) operations -> . operations + operations
     (26) operations -> . operations - operations
     (27) operations -> . operations * operations
@@ -999,26 +1010,28 @@ state 32
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     [               shift and go to state 32
     (               shift and go to state 39
     -               shift and go to state 38
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    array_list                     shift and go to state 55
-    operations_list                shift and go to state 56
-    array                          shift and go to state 57
+    array_list                     shift and go to state 56
+    operations_list                shift and go to state 57
+    array                          shift and go to state 58
     operations                     shift and go to state 37
     value                          shift and go to state 41
     identifier                     shift and go to state 42
@@ -1047,30 +1060,32 @@ state 33
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    condition                      shift and go to state 58
-    operations                     shift and go to state 59
+    condition                      shift and go to state 59
+    operations                     shift and go to state 60
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
@@ -1079,7 +1094,7 @@ state 34
 
     (19) instruction_loop -> FOR ID . = operations : operations instruction
 
-    =               shift and go to state 60
+    =               shift and go to state 61
 
 
 state 35
@@ -1105,30 +1120,32 @@ state 35
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    condition                      shift and go to state 61
-    operations                     shift and go to state 59
+    condition                      shift and go to state 62
+    operations                     shift and go to state 60
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
@@ -1136,15 +1153,15 @@ state 35
 state 36
 
     (21) instruction_print -> PRINT operations_list .
-    (57) operations_list -> operations_list . , operations
+    (58) operations_list -> operations_list . , operations
 
     ;               reduce using rule 21 (instruction_print -> PRINT operations_list .)
-    ,               shift and go to state 62
+    ,               shift and go to state 63
 
 
 state 37
 
-    (58) operations_list -> operations .
+    (59) operations_list -> operations .
     (25) operations -> operations . + operations
     (26) operations -> operations . - operations
     (27) operations -> operations . * operations
@@ -1160,23 +1177,23 @@ state 37
     (37) operations -> operations . MULTIPLY_MATRIX operations
     (38) operations -> operations . DIVIDE_MATRIX operations
 
-    ,               reduce using rule 58 (operations_list -> operations .)
-    ;               reduce using rule 58 (operations_list -> operations .)
-    ]               reduce using rule 58 (operations_list -> operations .)
-    +               shift and go to state 63
-    -               shift and go to state 64
-    *               shift and go to state 65
-    /               shift and go to state 66
-    >               shift and go to state 67
-    <               shift and go to state 68
-    GREATER_OR_EQUAL shift and go to state 69
-    LESS_OR_EQUAL   shift and go to state 70
-    NOT_EQUAL       shift and go to state 71
-    EQUAL           shift and go to state 72
-    PLUS_MATRIX     shift and go to state 73
-    MINUS_MATRIX    shift and go to state 74
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
+    ,               reduce using rule 59 (operations_list -> operations .)
+    ;               reduce using rule 59 (operations_list -> operations .)
+    ]               reduce using rule 59 (operations_list -> operations .)
+    +               shift and go to state 64
+    -               shift and go to state 65
+    *               shift and go to state 66
+    /               shift and go to state 67
+    >               shift and go to state 68
+    <               shift and go to state 69
+    GREATER_OR_EQUAL shift and go to state 70
+    LESS_OR_EQUAL   shift and go to state 71
+    NOT_EQUAL       shift and go to state 72
+    EQUAL           shift and go to state 73
+    PLUS_MATRIX     shift and go to state 74
+    MINUS_MATRIX    shift and go to state 75
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
 
 
 state 38
@@ -1201,29 +1218,31 @@ state 38
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    operations                     shift and go to state 77
+    operations                     shift and go to state 78
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
@@ -1251,29 +1270,31 @@ state 39
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    operations                     shift and go to state 78
+    operations                     shift and go to state 79
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
@@ -1349,10 +1370,10 @@ state 41
 state 42
 
     (44) value -> identifier .
-    (51) identifier -> identifier . array
-    (52) identifier -> identifier . '
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (52) identifier -> identifier . array
+    (53) identifier -> identifier . '
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
 
     +               reduce using rule 44 (value -> identifier .)
     -               reduce using rule 44 (value -> identifier .)
@@ -1457,26 +1478,60 @@ state 44
 
 state 45
 
-    (47) value -> ZEROS . ( INT )
+    (47) value -> STRING .
 
-    (               shift and go to state 79
+    +               reduce using rule 47 (value -> STRING .)
+    -               reduce using rule 47 (value -> STRING .)
+    *               reduce using rule 47 (value -> STRING .)
+    /               reduce using rule 47 (value -> STRING .)
+    >               reduce using rule 47 (value -> STRING .)
+    <               reduce using rule 47 (value -> STRING .)
+    GREATER_OR_EQUAL reduce using rule 47 (value -> STRING .)
+    LESS_OR_EQUAL   reduce using rule 47 (value -> STRING .)
+    NOT_EQUAL       reduce using rule 47 (value -> STRING .)
+    EQUAL           reduce using rule 47 (value -> STRING .)
+    PLUS_MATRIX     reduce using rule 47 (value -> STRING .)
+    MINUS_MATRIX    reduce using rule 47 (value -> STRING .)
+    MULTIPLY_MATRIX reduce using rule 47 (value -> STRING .)
+    DIVIDE_MATRIX   reduce using rule 47 (value -> STRING .)
+    ,               reduce using rule 47 (value -> STRING .)
+    ;               reduce using rule 47 (value -> STRING .)
+    ]               reduce using rule 47 (value -> STRING .)
+    )               reduce using rule 47 (value -> STRING .)
+    :               reduce using rule 47 (value -> STRING .)
+    BREAK           reduce using rule 47 (value -> STRING .)
+    CONTINUE        reduce using rule 47 (value -> STRING .)
+    {               reduce using rule 47 (value -> STRING .)
+    IF              reduce using rule 47 (value -> STRING .)
+    FOR             reduce using rule 47 (value -> STRING .)
+    WHILE           reduce using rule 47 (value -> STRING .)
+    PRINT           reduce using rule 47 (value -> STRING .)
+    RETURN          reduce using rule 47 (value -> STRING .)
+    ID              reduce using rule 47 (value -> STRING .)
 
 
 state 46
 
-    (48) value -> ONES . ( INT )
+    (48) value -> ZEROS . ( INT )
 
     (               shift and go to state 80
 
 
 state 47
 
-    (49) value -> EYE . ( INT )
+    (49) value -> ONES . ( INT )
 
     (               shift and go to state 81
 
 
 state 48
+
+    (50) value -> EYE . ( INT )
+
+    (               shift and go to state 82
+
+
+state 49
 
     (22) instruction_return -> RETURN operations .
     (25) operations -> operations . + operations
@@ -1495,23 +1550,23 @@ state 48
     (38) operations -> operations . DIVIDE_MATRIX operations
 
     ;               reduce using rule 22 (instruction_return -> RETURN operations .)
-    +               shift and go to state 63
-    -               shift and go to state 64
-    *               shift and go to state 65
-    /               shift and go to state 66
-    >               shift and go to state 67
-    <               shift and go to state 68
-    GREATER_OR_EQUAL shift and go to state 69
-    LESS_OR_EQUAL   shift and go to state 70
-    NOT_EQUAL       shift and go to state 71
-    EQUAL           shift and go to state 72
-    PLUS_MATRIX     shift and go to state 73
-    MINUS_MATRIX    shift and go to state 74
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
+    +               shift and go to state 64
+    -               shift and go to state 65
+    *               shift and go to state 66
+    /               shift and go to state 67
+    >               shift and go to state 68
+    <               shift and go to state 69
+    GREATER_OR_EQUAL shift and go to state 70
+    LESS_OR_EQUAL   shift and go to state 71
+    NOT_EQUAL       shift and go to state 72
+    EQUAL           shift and go to state 73
+    PLUS_MATRIX     shift and go to state 74
+    MINUS_MATRIX    shift and go to state 75
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
 
 
-state 49
+state 50
 
     (11) instruction -> { instructions } .
 
@@ -1529,7 +1584,7 @@ state 49
     ELSE            reduce using rule 11 (instruction -> { instructions } .)
 
 
-state 50
+state 51
 
     (12) assignment -> identifier = operations .
     (25) operations -> operations . + operations
@@ -1548,23 +1603,23 @@ state 50
     (38) operations -> operations . DIVIDE_MATRIX operations
 
     ;               reduce using rule 12 (assignment -> identifier = operations .)
-    +               shift and go to state 63
-    -               shift and go to state 64
-    *               shift and go to state 65
-    /               shift and go to state 66
-    >               shift and go to state 67
-    <               shift and go to state 68
-    GREATER_OR_EQUAL shift and go to state 69
-    LESS_OR_EQUAL   shift and go to state 70
-    NOT_EQUAL       shift and go to state 71
-    EQUAL           shift and go to state 72
-    PLUS_MATRIX     shift and go to state 73
-    MINUS_MATRIX    shift and go to state 74
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
+    +               shift and go to state 64
+    -               shift and go to state 65
+    *               shift and go to state 66
+    /               shift and go to state 67
+    >               shift and go to state 68
+    <               shift and go to state 69
+    GREATER_OR_EQUAL shift and go to state 70
+    LESS_OR_EQUAL   shift and go to state 71
+    NOT_EQUAL       shift and go to state 72
+    EQUAL           shift and go to state 73
+    PLUS_MATRIX     shift and go to state 74
+    MINUS_MATRIX    shift and go to state 75
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
 
 
-state 51
+state 52
 
     (13) assignment -> identifier ADDITION_ASSIGN operations .
     (25) operations -> operations . + operations
@@ -1583,23 +1638,23 @@ state 51
     (38) operations -> operations . DIVIDE_MATRIX operations
 
     ;               reduce using rule 13 (assignment -> identifier ADDITION_ASSIGN operations .)
-    +               shift and go to state 63
-    -               shift and go to state 64
-    *               shift and go to state 65
-    /               shift and go to state 66
-    >               shift and go to state 67
-    <               shift and go to state 68
-    GREATER_OR_EQUAL shift and go to state 69
-    LESS_OR_EQUAL   shift and go to state 70
-    NOT_EQUAL       shift and go to state 71
-    EQUAL           shift and go to state 72
-    PLUS_MATRIX     shift and go to state 73
-    MINUS_MATRIX    shift and go to state 74
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
+    +               shift and go to state 64
+    -               shift and go to state 65
+    *               shift and go to state 66
+    /               shift and go to state 67
+    >               shift and go to state 68
+    <               shift and go to state 69
+    GREATER_OR_EQUAL shift and go to state 70
+    LESS_OR_EQUAL   shift and go to state 71
+    NOT_EQUAL       shift and go to state 72
+    EQUAL           shift and go to state 73
+    PLUS_MATRIX     shift and go to state 74
+    MINUS_MATRIX    shift and go to state 75
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
 
 
-state 52
+state 53
 
     (14) assignment -> identifier MULTIPLICATION_ASSIGN operations .
     (25) operations -> operations . + operations
@@ -1618,23 +1673,23 @@ state 52
     (38) operations -> operations . DIVIDE_MATRIX operations
 
     ;               reduce using rule 14 (assignment -> identifier MULTIPLICATION_ASSIGN operations .)
-    +               shift and go to state 63
-    -               shift and go to state 64
-    *               shift and go to state 65
-    /               shift and go to state 66
-    >               shift and go to state 67
-    <               shift and go to state 68
-    GREATER_OR_EQUAL shift and go to state 69
-    LESS_OR_EQUAL   shift and go to state 70
-    NOT_EQUAL       shift and go to state 71
-    EQUAL           shift and go to state 72
-    PLUS_MATRIX     shift and go to state 73
-    MINUS_MATRIX    shift and go to state 74
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
+    +               shift and go to state 64
+    -               shift and go to state 65
+    *               shift and go to state 66
+    /               shift and go to state 67
+    >               shift and go to state 68
+    <               shift and go to state 69
+    GREATER_OR_EQUAL shift and go to state 70
+    LESS_OR_EQUAL   shift and go to state 71
+    NOT_EQUAL       shift and go to state 72
+    EQUAL           shift and go to state 73
+    PLUS_MATRIX     shift and go to state 74
+    MINUS_MATRIX    shift and go to state 75
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
 
 
-state 53
+state 54
 
     (15) assignment -> identifier SUBTRACTION_ASSIGN operations .
     (25) operations -> operations . + operations
@@ -1653,23 +1708,23 @@ state 53
     (38) operations -> operations . DIVIDE_MATRIX operations
 
     ;               reduce using rule 15 (assignment -> identifier SUBTRACTION_ASSIGN operations .)
-    +               shift and go to state 63
-    -               shift and go to state 64
-    *               shift and go to state 65
-    /               shift and go to state 66
-    >               shift and go to state 67
-    <               shift and go to state 68
-    GREATER_OR_EQUAL shift and go to state 69
-    LESS_OR_EQUAL   shift and go to state 70
-    NOT_EQUAL       shift and go to state 71
-    EQUAL           shift and go to state 72
-    PLUS_MATRIX     shift and go to state 73
-    MINUS_MATRIX    shift and go to state 74
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
+    +               shift and go to state 64
+    -               shift and go to state 65
+    *               shift and go to state 66
+    /               shift and go to state 67
+    >               shift and go to state 68
+    <               shift and go to state 69
+    GREATER_OR_EQUAL shift and go to state 70
+    LESS_OR_EQUAL   shift and go to state 71
+    NOT_EQUAL       shift and go to state 72
+    EQUAL           shift and go to state 73
+    PLUS_MATRIX     shift and go to state 74
+    MINUS_MATRIX    shift and go to state 75
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
 
 
-state 54
+state 55
 
     (16) assignment -> identifier DIVISION_ASSIGN operations .
     (25) operations -> operations . + operations
@@ -1688,43 +1743,43 @@ state 54
     (38) operations -> operations . DIVIDE_MATRIX operations
 
     ;               reduce using rule 16 (assignment -> identifier DIVISION_ASSIGN operations .)
-    +               shift and go to state 63
-    -               shift and go to state 64
-    *               shift and go to state 65
-    /               shift and go to state 66
-    >               shift and go to state 67
-    <               shift and go to state 68
-    GREATER_OR_EQUAL shift and go to state 69
-    LESS_OR_EQUAL   shift and go to state 70
-    NOT_EQUAL       shift and go to state 71
-    EQUAL           shift and go to state 72
-    PLUS_MATRIX     shift and go to state 73
-    MINUS_MATRIX    shift and go to state 74
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
-
-
-state 55
-
-    (53) array -> [ array_list . ]
-    (55) array_list -> array_list . , array
-
-    ]               shift and go to state 82
-    ,               shift and go to state 83
+    +               shift and go to state 64
+    -               shift and go to state 65
+    *               shift and go to state 66
+    /               shift and go to state 67
+    >               shift and go to state 68
+    <               shift and go to state 69
+    GREATER_OR_EQUAL shift and go to state 70
+    LESS_OR_EQUAL   shift and go to state 71
+    NOT_EQUAL       shift and go to state 72
+    EQUAL           shift and go to state 73
+    PLUS_MATRIX     shift and go to state 74
+    MINUS_MATRIX    shift and go to state 75
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
 
 
 state 56
 
-    (54) array -> [ operations_list . ]
-    (57) operations_list -> operations_list . , operations
+    (54) array -> [ array_list . ]
+    (56) array_list -> array_list . , array
 
-    ]               shift and go to state 84
-    ,               shift and go to state 62
+    ]               shift and go to state 83
+    ,               shift and go to state 84
 
 
 state 57
 
-    (56) array_list -> array .
+    (55) array -> [ operations_list . ]
+    (58) operations_list -> operations_list . , operations
+
+    ]               shift and go to state 85
+    ,               shift and go to state 63
+
+
+state 58
+
+    (57) array_list -> array .
     (41) operations -> array .
 
   ! reduce/reduce conflict for ] resolved using rule 41 (operations -> array .)
@@ -1746,19 +1801,19 @@ state 57
     ]               reduce using rule 41 (operations -> array .)
     ,               reduce using rule 41 (operations -> array .)
 
-  ! ]               [ reduce using rule 56 (array_list -> array .) ]
-  ! ,               [ reduce using rule 56 (array_list -> array .) ]
+  ! ]               [ reduce using rule 57 (array_list -> array .) ]
+  ! ,               [ reduce using rule 57 (array_list -> array .) ]
 
 
-state 58
+state 59
 
     (17) instruction_if -> IF ( condition . ) instruction
     (18) instruction_if -> IF ( condition . ) instruction ELSE instruction
 
-    )               shift and go to state 85
+    )               shift and go to state 86
 
 
-state 59
+state 60
 
     (24) condition -> operations .
     (25) operations -> operations . + operations
@@ -1777,23 +1832,23 @@ state 59
     (38) operations -> operations . DIVIDE_MATRIX operations
 
     )               reduce using rule 24 (condition -> operations .)
-    +               shift and go to state 63
-    -               shift and go to state 64
-    *               shift and go to state 65
-    /               shift and go to state 66
-    >               shift and go to state 67
-    <               shift and go to state 68
-    GREATER_OR_EQUAL shift and go to state 69
-    LESS_OR_EQUAL   shift and go to state 70
-    NOT_EQUAL       shift and go to state 71
-    EQUAL           shift and go to state 72
-    PLUS_MATRIX     shift and go to state 73
-    MINUS_MATRIX    shift and go to state 74
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
+    +               shift and go to state 64
+    -               shift and go to state 65
+    *               shift and go to state 66
+    /               shift and go to state 67
+    >               shift and go to state 68
+    <               shift and go to state 69
+    GREATER_OR_EQUAL shift and go to state 70
+    LESS_OR_EQUAL   shift and go to state 71
+    NOT_EQUAL       shift and go to state 72
+    EQUAL           shift and go to state 73
+    PLUS_MATRIX     shift and go to state 74
+    MINUS_MATRIX    shift and go to state 75
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
 
 
-state 60
+state 61
 
     (19) instruction_loop -> FOR ID = . operations : operations instruction
     (25) operations -> . operations + operations
@@ -1815,43 +1870,45 @@ state 60
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    operations                     shift and go to state 86
+    operations                     shift and go to state 87
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
 
-state 61
+state 62
 
     (20) instruction_loop -> WHILE ( condition . ) instruction
 
-    )               shift and go to state 87
+    )               shift and go to state 88
 
 
-state 62
+state 63
 
-    (57) operations_list -> operations_list , . operations
+    (58) operations_list -> operations_list , . operations
     (25) operations -> . operations + operations
     (26) operations -> . operations - operations
     (27) operations -> . operations * operations
@@ -1871,34 +1928,36 @@ state 62
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    operations                     shift and go to state 88
+    operations                     shift and go to state 89
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
 
-state 63
+state 64
 
     (25) operations -> operations + . operations
     (25) operations -> . operations + operations
@@ -1920,34 +1979,36 @@ state 63
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    operations                     shift and go to state 89
+    operations                     shift and go to state 90
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
 
-state 64
+state 65
 
     (26) operations -> operations - . operations
     (25) operations -> . operations + operations
@@ -1969,34 +2030,36 @@ state 64
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    operations                     shift and go to state 90
+    operations                     shift and go to state 91
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
 
-state 65
+state 66
 
     (27) operations -> operations * . operations
     (25) operations -> . operations + operations
@@ -2018,34 +2081,36 @@ state 65
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    operations                     shift and go to state 91
+    operations                     shift and go to state 92
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
 
-state 66
+state 67
 
     (28) operations -> operations / . operations
     (25) operations -> . operations + operations
@@ -2067,34 +2132,36 @@ state 66
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    operations                     shift and go to state 92
+    operations                     shift and go to state 93
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
 
-state 67
+state 68
 
     (29) operations -> operations > . operations
     (25) operations -> . operations + operations
@@ -2116,34 +2183,36 @@ state 67
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    operations                     shift and go to state 93
+    operations                     shift and go to state 94
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
 
-state 68
+state 69
 
     (30) operations -> operations < . operations
     (25) operations -> . operations + operations
@@ -2165,34 +2234,36 @@ state 68
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    operations                     shift and go to state 94
+    operations                     shift and go to state 95
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
 
-state 69
+state 70
 
     (31) operations -> operations GREATER_OR_EQUAL . operations
     (25) operations -> . operations + operations
@@ -2214,34 +2285,36 @@ state 69
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    operations                     shift and go to state 95
+    operations                     shift and go to state 96
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
 
-state 70
+state 71
 
     (32) operations -> operations LESS_OR_EQUAL . operations
     (25) operations -> . operations + operations
@@ -2263,34 +2336,36 @@ state 70
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    operations                     shift and go to state 96
+    operations                     shift and go to state 97
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
 
-state 71
+state 72
 
     (33) operations -> operations NOT_EQUAL . operations
     (25) operations -> . operations + operations
@@ -2312,34 +2387,36 @@ state 71
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    operations                     shift and go to state 97
+    operations                     shift and go to state 98
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
 
-state 72
+state 73
 
     (34) operations -> operations EQUAL . operations
     (25) operations -> . operations + operations
@@ -2361,34 +2438,36 @@ state 72
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    operations                     shift and go to state 98
+    operations                     shift and go to state 99
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
 
-state 73
+state 74
 
     (35) operations -> operations PLUS_MATRIX . operations
     (25) operations -> . operations + operations
@@ -2410,34 +2489,36 @@ state 73
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    operations                     shift and go to state 99
+    operations                     shift and go to state 100
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
 
-state 74
+state 75
 
     (36) operations -> operations MINUS_MATRIX . operations
     (25) operations -> . operations + operations
@@ -2459,34 +2540,36 @@ state 74
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    operations                     shift and go to state 100
+    operations                     shift and go to state 101
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
 
-state 75
+state 76
 
     (37) operations -> operations MULTIPLY_MATRIX . operations
     (25) operations -> . operations + operations
@@ -2508,34 +2591,36 @@ state 75
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    operations                     shift and go to state 101
+    operations                     shift and go to state 102
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
 
-state 76
+state 77
 
     (38) operations -> operations DIVIDE_MATRIX . operations
     (25) operations -> . operations + operations
@@ -2557,34 +2642,36 @@ state 76
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    operations                     shift and go to state 102
+    operations                     shift and go to state 103
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
 
-state 77
+state 78
 
     (43) operations -> - operations .
     (25) operations -> operations . + operations
@@ -2631,23 +2718,23 @@ state 77
     RETURN          reduce using rule 43 (operations -> - operations .)
     ID              reduce using rule 43 (operations -> - operations .)
 
-  ! +               [ shift and go to state 63 ]
-  ! -               [ shift and go to state 64 ]
-  ! *               [ shift and go to state 65 ]
-  ! /               [ shift and go to state 66 ]
-  ! >               [ shift and go to state 67 ]
-  ! <               [ shift and go to state 68 ]
-  ! GREATER_OR_EQUAL [ shift and go to state 69 ]
-  ! LESS_OR_EQUAL   [ shift and go to state 70 ]
-  ! NOT_EQUAL       [ shift and go to state 71 ]
-  ! EQUAL           [ shift and go to state 72 ]
-  ! PLUS_MATRIX     [ shift and go to state 73 ]
-  ! MINUS_MATRIX    [ shift and go to state 74 ]
-  ! MULTIPLY_MATRIX [ shift and go to state 75 ]
-  ! DIVIDE_MATRIX   [ shift and go to state 76 ]
+  ! +               [ shift and go to state 64 ]
+  ! -               [ shift and go to state 65 ]
+  ! *               [ shift and go to state 66 ]
+  ! /               [ shift and go to state 67 ]
+  ! >               [ shift and go to state 68 ]
+  ! <               [ shift and go to state 69 ]
+  ! GREATER_OR_EQUAL [ shift and go to state 70 ]
+  ! LESS_OR_EQUAL   [ shift and go to state 71 ]
+  ! NOT_EQUAL       [ shift and go to state 72 ]
+  ! EQUAL           [ shift and go to state 73 ]
+  ! PLUS_MATRIX     [ shift and go to state 74 ]
+  ! MINUS_MATRIX    [ shift and go to state 75 ]
+  ! MULTIPLY_MATRIX [ shift and go to state 76 ]
+  ! DIVIDE_MATRIX   [ shift and go to state 77 ]
 
 
-state 78
+state 79
 
     (39) operations -> ( operations . )
     (40) operations -> ( operations . ) '
@@ -2666,137 +2753,137 @@ state 78
     (37) operations -> operations . MULTIPLY_MATRIX operations
     (38) operations -> operations . DIVIDE_MATRIX operations
 
-    )               shift and go to state 103
-    +               shift and go to state 63
-    -               shift and go to state 64
-    *               shift and go to state 65
-    /               shift and go to state 66
-    >               shift and go to state 67
-    <               shift and go to state 68
-    GREATER_OR_EQUAL shift and go to state 69
-    LESS_OR_EQUAL   shift and go to state 70
-    NOT_EQUAL       shift and go to state 71
-    EQUAL           shift and go to state 72
-    PLUS_MATRIX     shift and go to state 73
-    MINUS_MATRIX    shift and go to state 74
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
-
-
-state 79
-
-    (47) value -> ZEROS ( . INT )
-
-    INT             shift and go to state 104
+    )               shift and go to state 104
+    +               shift and go to state 64
+    -               shift and go to state 65
+    *               shift and go to state 66
+    /               shift and go to state 67
+    >               shift and go to state 68
+    <               shift and go to state 69
+    GREATER_OR_EQUAL shift and go to state 70
+    LESS_OR_EQUAL   shift and go to state 71
+    NOT_EQUAL       shift and go to state 72
+    EQUAL           shift and go to state 73
+    PLUS_MATRIX     shift and go to state 74
+    MINUS_MATRIX    shift and go to state 75
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
 
 
 state 80
 
-    (48) value -> ONES ( . INT )
+    (48) value -> ZEROS ( . INT )
 
     INT             shift and go to state 105
 
 
 state 81
 
-    (49) value -> EYE ( . INT )
+    (49) value -> ONES ( . INT )
 
     INT             shift and go to state 106
 
 
 state 82
 
-    (53) array -> [ array_list ] .
+    (50) value -> EYE ( . INT )
 
-    =               reduce using rule 53 (array -> [ array_list ] .)
-    ADDITION_ASSIGN reduce using rule 53 (array -> [ array_list ] .)
-    MULTIPLICATION_ASSIGN reduce using rule 53 (array -> [ array_list ] .)
-    SUBTRACTION_ASSIGN reduce using rule 53 (array -> [ array_list ] .)
-    DIVISION_ASSIGN reduce using rule 53 (array -> [ array_list ] .)
-    '               reduce using rule 53 (array -> [ array_list ] .)
-    [               reduce using rule 53 (array -> [ array_list ] .)
-    +               reduce using rule 53 (array -> [ array_list ] .)
-    -               reduce using rule 53 (array -> [ array_list ] .)
-    *               reduce using rule 53 (array -> [ array_list ] .)
-    /               reduce using rule 53 (array -> [ array_list ] .)
-    >               reduce using rule 53 (array -> [ array_list ] .)
-    <               reduce using rule 53 (array -> [ array_list ] .)
-    GREATER_OR_EQUAL reduce using rule 53 (array -> [ array_list ] .)
-    LESS_OR_EQUAL   reduce using rule 53 (array -> [ array_list ] .)
-    NOT_EQUAL       reduce using rule 53 (array -> [ array_list ] .)
-    EQUAL           reduce using rule 53 (array -> [ array_list ] .)
-    PLUS_MATRIX     reduce using rule 53 (array -> [ array_list ] .)
-    MINUS_MATRIX    reduce using rule 53 (array -> [ array_list ] .)
-    MULTIPLY_MATRIX reduce using rule 53 (array -> [ array_list ] .)
-    DIVIDE_MATRIX   reduce using rule 53 (array -> [ array_list ] .)
-    ,               reduce using rule 53 (array -> [ array_list ] .)
-    ;               reduce using rule 53 (array -> [ array_list ] .)
-    ]               reduce using rule 53 (array -> [ array_list ] .)
-    )               reduce using rule 53 (array -> [ array_list ] .)
-    :               reduce using rule 53 (array -> [ array_list ] .)
-    BREAK           reduce using rule 53 (array -> [ array_list ] .)
-    CONTINUE        reduce using rule 53 (array -> [ array_list ] .)
-    {               reduce using rule 53 (array -> [ array_list ] .)
-    IF              reduce using rule 53 (array -> [ array_list ] .)
-    FOR             reduce using rule 53 (array -> [ array_list ] .)
-    WHILE           reduce using rule 53 (array -> [ array_list ] .)
-    PRINT           reduce using rule 53 (array -> [ array_list ] .)
-    RETURN          reduce using rule 53 (array -> [ array_list ] .)
-    ID              reduce using rule 53 (array -> [ array_list ] .)
+    INT             shift and go to state 107
 
 
 state 83
 
-    (55) array_list -> array_list , . array
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> [ array_list ] .
 
-    [               shift and go to state 32
+    =               reduce using rule 54 (array -> [ array_list ] .)
+    ADDITION_ASSIGN reduce using rule 54 (array -> [ array_list ] .)
+    MULTIPLICATION_ASSIGN reduce using rule 54 (array -> [ array_list ] .)
+    SUBTRACTION_ASSIGN reduce using rule 54 (array -> [ array_list ] .)
+    DIVISION_ASSIGN reduce using rule 54 (array -> [ array_list ] .)
+    '               reduce using rule 54 (array -> [ array_list ] .)
+    [               reduce using rule 54 (array -> [ array_list ] .)
+    +               reduce using rule 54 (array -> [ array_list ] .)
+    -               reduce using rule 54 (array -> [ array_list ] .)
+    *               reduce using rule 54 (array -> [ array_list ] .)
+    /               reduce using rule 54 (array -> [ array_list ] .)
+    >               reduce using rule 54 (array -> [ array_list ] .)
+    <               reduce using rule 54 (array -> [ array_list ] .)
+    GREATER_OR_EQUAL reduce using rule 54 (array -> [ array_list ] .)
+    LESS_OR_EQUAL   reduce using rule 54 (array -> [ array_list ] .)
+    NOT_EQUAL       reduce using rule 54 (array -> [ array_list ] .)
+    EQUAL           reduce using rule 54 (array -> [ array_list ] .)
+    PLUS_MATRIX     reduce using rule 54 (array -> [ array_list ] .)
+    MINUS_MATRIX    reduce using rule 54 (array -> [ array_list ] .)
+    MULTIPLY_MATRIX reduce using rule 54 (array -> [ array_list ] .)
+    DIVIDE_MATRIX   reduce using rule 54 (array -> [ array_list ] .)
+    ,               reduce using rule 54 (array -> [ array_list ] .)
+    ;               reduce using rule 54 (array -> [ array_list ] .)
+    ]               reduce using rule 54 (array -> [ array_list ] .)
+    )               reduce using rule 54 (array -> [ array_list ] .)
+    :               reduce using rule 54 (array -> [ array_list ] .)
+    BREAK           reduce using rule 54 (array -> [ array_list ] .)
+    CONTINUE        reduce using rule 54 (array -> [ array_list ] .)
+    {               reduce using rule 54 (array -> [ array_list ] .)
+    IF              reduce using rule 54 (array -> [ array_list ] .)
+    FOR             reduce using rule 54 (array -> [ array_list ] .)
+    WHILE           reduce using rule 54 (array -> [ array_list ] .)
+    PRINT           reduce using rule 54 (array -> [ array_list ] .)
+    RETURN          reduce using rule 54 (array -> [ array_list ] .)
+    ID              reduce using rule 54 (array -> [ array_list ] .)
 
-    array                          shift and go to state 107
 
 state 84
 
-    (54) array -> [ operations_list ] .
+    (56) array_list -> array_list , . array
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
 
-    =               reduce using rule 54 (array -> [ operations_list ] .)
-    ADDITION_ASSIGN reduce using rule 54 (array -> [ operations_list ] .)
-    MULTIPLICATION_ASSIGN reduce using rule 54 (array -> [ operations_list ] .)
-    SUBTRACTION_ASSIGN reduce using rule 54 (array -> [ operations_list ] .)
-    DIVISION_ASSIGN reduce using rule 54 (array -> [ operations_list ] .)
-    '               reduce using rule 54 (array -> [ operations_list ] .)
-    [               reduce using rule 54 (array -> [ operations_list ] .)
-    +               reduce using rule 54 (array -> [ operations_list ] .)
-    -               reduce using rule 54 (array -> [ operations_list ] .)
-    *               reduce using rule 54 (array -> [ operations_list ] .)
-    /               reduce using rule 54 (array -> [ operations_list ] .)
-    >               reduce using rule 54 (array -> [ operations_list ] .)
-    <               reduce using rule 54 (array -> [ operations_list ] .)
-    GREATER_OR_EQUAL reduce using rule 54 (array -> [ operations_list ] .)
-    LESS_OR_EQUAL   reduce using rule 54 (array -> [ operations_list ] .)
-    NOT_EQUAL       reduce using rule 54 (array -> [ operations_list ] .)
-    EQUAL           reduce using rule 54 (array -> [ operations_list ] .)
-    PLUS_MATRIX     reduce using rule 54 (array -> [ operations_list ] .)
-    MINUS_MATRIX    reduce using rule 54 (array -> [ operations_list ] .)
-    MULTIPLY_MATRIX reduce using rule 54 (array -> [ operations_list ] .)
-    DIVIDE_MATRIX   reduce using rule 54 (array -> [ operations_list ] .)
-    ,               reduce using rule 54 (array -> [ operations_list ] .)
-    ;               reduce using rule 54 (array -> [ operations_list ] .)
-    ]               reduce using rule 54 (array -> [ operations_list ] .)
-    )               reduce using rule 54 (array -> [ operations_list ] .)
-    :               reduce using rule 54 (array -> [ operations_list ] .)
-    BREAK           reduce using rule 54 (array -> [ operations_list ] .)
-    CONTINUE        reduce using rule 54 (array -> [ operations_list ] .)
-    {               reduce using rule 54 (array -> [ operations_list ] .)
-    IF              reduce using rule 54 (array -> [ operations_list ] .)
-    FOR             reduce using rule 54 (array -> [ operations_list ] .)
-    WHILE           reduce using rule 54 (array -> [ operations_list ] .)
-    PRINT           reduce using rule 54 (array -> [ operations_list ] .)
-    RETURN          reduce using rule 54 (array -> [ operations_list ] .)
-    ID              reduce using rule 54 (array -> [ operations_list ] .)
+    [               shift and go to state 32
 
+    array                          shift and go to state 108
 
 state 85
+
+    (55) array -> [ operations_list ] .
+
+    =               reduce using rule 55 (array -> [ operations_list ] .)
+    ADDITION_ASSIGN reduce using rule 55 (array -> [ operations_list ] .)
+    MULTIPLICATION_ASSIGN reduce using rule 55 (array -> [ operations_list ] .)
+    SUBTRACTION_ASSIGN reduce using rule 55 (array -> [ operations_list ] .)
+    DIVISION_ASSIGN reduce using rule 55 (array -> [ operations_list ] .)
+    '               reduce using rule 55 (array -> [ operations_list ] .)
+    [               reduce using rule 55 (array -> [ operations_list ] .)
+    +               reduce using rule 55 (array -> [ operations_list ] .)
+    -               reduce using rule 55 (array -> [ operations_list ] .)
+    *               reduce using rule 55 (array -> [ operations_list ] .)
+    /               reduce using rule 55 (array -> [ operations_list ] .)
+    >               reduce using rule 55 (array -> [ operations_list ] .)
+    <               reduce using rule 55 (array -> [ operations_list ] .)
+    GREATER_OR_EQUAL reduce using rule 55 (array -> [ operations_list ] .)
+    LESS_OR_EQUAL   reduce using rule 55 (array -> [ operations_list ] .)
+    NOT_EQUAL       reduce using rule 55 (array -> [ operations_list ] .)
+    EQUAL           reduce using rule 55 (array -> [ operations_list ] .)
+    PLUS_MATRIX     reduce using rule 55 (array -> [ operations_list ] .)
+    MINUS_MATRIX    reduce using rule 55 (array -> [ operations_list ] .)
+    MULTIPLY_MATRIX reduce using rule 55 (array -> [ operations_list ] .)
+    DIVIDE_MATRIX   reduce using rule 55 (array -> [ operations_list ] .)
+    ,               reduce using rule 55 (array -> [ operations_list ] .)
+    ;               reduce using rule 55 (array -> [ operations_list ] .)
+    ]               reduce using rule 55 (array -> [ operations_list ] .)
+    )               reduce using rule 55 (array -> [ operations_list ] .)
+    :               reduce using rule 55 (array -> [ operations_list ] .)
+    BREAK           reduce using rule 55 (array -> [ operations_list ] .)
+    CONTINUE        reduce using rule 55 (array -> [ operations_list ] .)
+    {               reduce using rule 55 (array -> [ operations_list ] .)
+    IF              reduce using rule 55 (array -> [ operations_list ] .)
+    FOR             reduce using rule 55 (array -> [ operations_list ] .)
+    WHILE           reduce using rule 55 (array -> [ operations_list ] .)
+    PRINT           reduce using rule 55 (array -> [ operations_list ] .)
+    RETURN          reduce using rule 55 (array -> [ operations_list ] .)
+    ID              reduce using rule 55 (array -> [ operations_list ] .)
+
+
+state 86
 
     (17) instruction_if -> IF ( condition ) . instruction
     (18) instruction_if -> IF ( condition ) . instruction ELSE instruction
@@ -2820,9 +2907,9 @@ state 85
     (21) instruction_print -> . PRINT operations_list
     (22) instruction_return -> . RETURN operations
     (23) instruction_return -> . RETURN
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     BREAK           shift and go to state 9
     CONTINUE        shift and go to state 10
@@ -2834,7 +2921,7 @@ state 85
     RETURN          shift and go to state 18
     ID              shift and go to state 15
 
-    instruction                    shift and go to state 108
+    instruction                    shift and go to state 109
     assignment                     shift and go to state 4
     instruction_if                 shift and go to state 5
     instruction_loop               shift and go to state 6
@@ -2842,7 +2929,7 @@ state 85
     instruction_return             shift and go to state 8
     identifier                     shift and go to state 12
 
-state 86
+state 87
 
     (19) instruction_loop -> FOR ID = operations . : operations instruction
     (25) operations -> operations . + operations
@@ -2860,24 +2947,24 @@ state 86
     (37) operations -> operations . MULTIPLY_MATRIX operations
     (38) operations -> operations . DIVIDE_MATRIX operations
 
-    :               shift and go to state 109
-    +               shift and go to state 63
-    -               shift and go to state 64
-    *               shift and go to state 65
-    /               shift and go to state 66
-    >               shift and go to state 67
-    <               shift and go to state 68
-    GREATER_OR_EQUAL shift and go to state 69
-    LESS_OR_EQUAL   shift and go to state 70
-    NOT_EQUAL       shift and go to state 71
-    EQUAL           shift and go to state 72
-    PLUS_MATRIX     shift and go to state 73
-    MINUS_MATRIX    shift and go to state 74
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
+    :               shift and go to state 110
+    +               shift and go to state 64
+    -               shift and go to state 65
+    *               shift and go to state 66
+    /               shift and go to state 67
+    >               shift and go to state 68
+    <               shift and go to state 69
+    GREATER_OR_EQUAL shift and go to state 70
+    LESS_OR_EQUAL   shift and go to state 71
+    NOT_EQUAL       shift and go to state 72
+    EQUAL           shift and go to state 73
+    PLUS_MATRIX     shift and go to state 74
+    MINUS_MATRIX    shift and go to state 75
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
 
 
-state 87
+state 88
 
     (20) instruction_loop -> WHILE ( condition ) . instruction
     (4) instruction -> . assignment ;
@@ -2900,9 +2987,9 @@ state 87
     (21) instruction_print -> . PRINT operations_list
     (22) instruction_return -> . RETURN operations
     (23) instruction_return -> . RETURN
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     BREAK           shift and go to state 9
     CONTINUE        shift and go to state 10
@@ -2914,7 +3001,7 @@ state 87
     RETURN          shift and go to state 18
     ID              shift and go to state 15
 
-    instruction                    shift and go to state 110
+    instruction                    shift and go to state 111
     assignment                     shift and go to state 4
     instruction_if                 shift and go to state 5
     instruction_loop               shift and go to state 6
@@ -2922,9 +3009,9 @@ state 87
     instruction_return             shift and go to state 8
     identifier                     shift and go to state 12
 
-state 88
+state 89
 
-    (57) operations_list -> operations_list , operations .
+    (58) operations_list -> operations_list , operations .
     (25) operations -> operations . + operations
     (26) operations -> operations . - operations
     (27) operations -> operations . * operations
@@ -2940,26 +3027,26 @@ state 88
     (37) operations -> operations . MULTIPLY_MATRIX operations
     (38) operations -> operations . DIVIDE_MATRIX operations
 
-    ,               reduce using rule 57 (operations_list -> operations_list , operations .)
-    ;               reduce using rule 57 (operations_list -> operations_list , operations .)
-    ]               reduce using rule 57 (operations_list -> operations_list , operations .)
-    +               shift and go to state 63
-    -               shift and go to state 64
-    *               shift and go to state 65
-    /               shift and go to state 66
-    >               shift and go to state 67
-    <               shift and go to state 68
-    GREATER_OR_EQUAL shift and go to state 69
-    LESS_OR_EQUAL   shift and go to state 70
-    NOT_EQUAL       shift and go to state 71
-    EQUAL           shift and go to state 72
-    PLUS_MATRIX     shift and go to state 73
-    MINUS_MATRIX    shift and go to state 74
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
+    ,               reduce using rule 58 (operations_list -> operations_list , operations .)
+    ;               reduce using rule 58 (operations_list -> operations_list , operations .)
+    ]               reduce using rule 58 (operations_list -> operations_list , operations .)
+    +               shift and go to state 64
+    -               shift and go to state 65
+    *               shift and go to state 66
+    /               shift and go to state 67
+    >               shift and go to state 68
+    <               shift and go to state 69
+    GREATER_OR_EQUAL shift and go to state 70
+    LESS_OR_EQUAL   shift and go to state 71
+    NOT_EQUAL       shift and go to state 72
+    EQUAL           shift and go to state 73
+    PLUS_MATRIX     shift and go to state 74
+    MINUS_MATRIX    shift and go to state 75
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
 
 
-state 89
+state 90
 
     (25) operations -> operations + operations .
     (25) operations -> operations . + operations
@@ -3001,28 +3088,28 @@ state 89
     PRINT           reduce using rule 25 (operations -> operations + operations .)
     RETURN          reduce using rule 25 (operations -> operations + operations .)
     ID              reduce using rule 25 (operations -> operations + operations .)
-    *               shift and go to state 65
-    /               shift and go to state 66
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
+    *               shift and go to state 66
+    /               shift and go to state 67
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
 
   ! *               [ reduce using rule 25 (operations -> operations + operations .) ]
   ! /               [ reduce using rule 25 (operations -> operations + operations .) ]
   ! MULTIPLY_MATRIX [ reduce using rule 25 (operations -> operations + operations .) ]
   ! DIVIDE_MATRIX   [ reduce using rule 25 (operations -> operations + operations .) ]
-  ! +               [ shift and go to state 63 ]
-  ! -               [ shift and go to state 64 ]
-  ! >               [ shift and go to state 67 ]
-  ! <               [ shift and go to state 68 ]
-  ! GREATER_OR_EQUAL [ shift and go to state 69 ]
-  ! LESS_OR_EQUAL   [ shift and go to state 70 ]
-  ! NOT_EQUAL       [ shift and go to state 71 ]
-  ! EQUAL           [ shift and go to state 72 ]
-  ! PLUS_MATRIX     [ shift and go to state 73 ]
-  ! MINUS_MATRIX    [ shift and go to state 74 ]
+  ! +               [ shift and go to state 64 ]
+  ! -               [ shift and go to state 65 ]
+  ! >               [ shift and go to state 68 ]
+  ! <               [ shift and go to state 69 ]
+  ! GREATER_OR_EQUAL [ shift and go to state 70 ]
+  ! LESS_OR_EQUAL   [ shift and go to state 71 ]
+  ! NOT_EQUAL       [ shift and go to state 72 ]
+  ! EQUAL           [ shift and go to state 73 ]
+  ! PLUS_MATRIX     [ shift and go to state 74 ]
+  ! MINUS_MATRIX    [ shift and go to state 75 ]
 
 
-state 90
+state 91
 
     (26) operations -> operations - operations .
     (25) operations -> operations . + operations
@@ -3064,28 +3151,28 @@ state 90
     PRINT           reduce using rule 26 (operations -> operations - operations .)
     RETURN          reduce using rule 26 (operations -> operations - operations .)
     ID              reduce using rule 26 (operations -> operations - operations .)
-    *               shift and go to state 65
-    /               shift and go to state 66
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
+    *               shift and go to state 66
+    /               shift and go to state 67
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
 
   ! *               [ reduce using rule 26 (operations -> operations - operations .) ]
   ! /               [ reduce using rule 26 (operations -> operations - operations .) ]
   ! MULTIPLY_MATRIX [ reduce using rule 26 (operations -> operations - operations .) ]
   ! DIVIDE_MATRIX   [ reduce using rule 26 (operations -> operations - operations .) ]
-  ! +               [ shift and go to state 63 ]
-  ! -               [ shift and go to state 64 ]
-  ! >               [ shift and go to state 67 ]
-  ! <               [ shift and go to state 68 ]
-  ! GREATER_OR_EQUAL [ shift and go to state 69 ]
-  ! LESS_OR_EQUAL   [ shift and go to state 70 ]
-  ! NOT_EQUAL       [ shift and go to state 71 ]
-  ! EQUAL           [ shift and go to state 72 ]
-  ! PLUS_MATRIX     [ shift and go to state 73 ]
-  ! MINUS_MATRIX    [ shift and go to state 74 ]
+  ! +               [ shift and go to state 64 ]
+  ! -               [ shift and go to state 65 ]
+  ! >               [ shift and go to state 68 ]
+  ! <               [ shift and go to state 69 ]
+  ! GREATER_OR_EQUAL [ shift and go to state 70 ]
+  ! LESS_OR_EQUAL   [ shift and go to state 71 ]
+  ! NOT_EQUAL       [ shift and go to state 72 ]
+  ! EQUAL           [ shift and go to state 73 ]
+  ! PLUS_MATRIX     [ shift and go to state 74 ]
+  ! MINUS_MATRIX    [ shift and go to state 75 ]
 
 
-state 91
+state 92
 
     (27) operations -> operations * operations .
     (25) operations -> operations . + operations
@@ -3132,23 +3219,23 @@ state 91
     RETURN          reduce using rule 27 (operations -> operations * operations .)
     ID              reduce using rule 27 (operations -> operations * operations .)
 
-  ! +               [ shift and go to state 63 ]
-  ! -               [ shift and go to state 64 ]
-  ! *               [ shift and go to state 65 ]
-  ! /               [ shift and go to state 66 ]
-  ! >               [ shift and go to state 67 ]
-  ! <               [ shift and go to state 68 ]
-  ! GREATER_OR_EQUAL [ shift and go to state 69 ]
-  ! LESS_OR_EQUAL   [ shift and go to state 70 ]
-  ! NOT_EQUAL       [ shift and go to state 71 ]
-  ! EQUAL           [ shift and go to state 72 ]
-  ! PLUS_MATRIX     [ shift and go to state 73 ]
-  ! MINUS_MATRIX    [ shift and go to state 74 ]
-  ! MULTIPLY_MATRIX [ shift and go to state 75 ]
-  ! DIVIDE_MATRIX   [ shift and go to state 76 ]
+  ! +               [ shift and go to state 64 ]
+  ! -               [ shift and go to state 65 ]
+  ! *               [ shift and go to state 66 ]
+  ! /               [ shift and go to state 67 ]
+  ! >               [ shift and go to state 68 ]
+  ! <               [ shift and go to state 69 ]
+  ! GREATER_OR_EQUAL [ shift and go to state 70 ]
+  ! LESS_OR_EQUAL   [ shift and go to state 71 ]
+  ! NOT_EQUAL       [ shift and go to state 72 ]
+  ! EQUAL           [ shift and go to state 73 ]
+  ! PLUS_MATRIX     [ shift and go to state 74 ]
+  ! MINUS_MATRIX    [ shift and go to state 75 ]
+  ! MULTIPLY_MATRIX [ shift and go to state 76 ]
+  ! DIVIDE_MATRIX   [ shift and go to state 77 ]
 
 
-state 92
+state 93
 
     (28) operations -> operations / operations .
     (25) operations -> operations . + operations
@@ -3195,23 +3282,23 @@ state 92
     RETURN          reduce using rule 28 (operations -> operations / operations .)
     ID              reduce using rule 28 (operations -> operations / operations .)
 
-  ! +               [ shift and go to state 63 ]
-  ! -               [ shift and go to state 64 ]
-  ! *               [ shift and go to state 65 ]
-  ! /               [ shift and go to state 66 ]
-  ! >               [ shift and go to state 67 ]
-  ! <               [ shift and go to state 68 ]
-  ! GREATER_OR_EQUAL [ shift and go to state 69 ]
-  ! LESS_OR_EQUAL   [ shift and go to state 70 ]
-  ! NOT_EQUAL       [ shift and go to state 71 ]
-  ! EQUAL           [ shift and go to state 72 ]
-  ! PLUS_MATRIX     [ shift and go to state 73 ]
-  ! MINUS_MATRIX    [ shift and go to state 74 ]
-  ! MULTIPLY_MATRIX [ shift and go to state 75 ]
-  ! DIVIDE_MATRIX   [ shift and go to state 76 ]
+  ! +               [ shift and go to state 64 ]
+  ! -               [ shift and go to state 65 ]
+  ! *               [ shift and go to state 66 ]
+  ! /               [ shift and go to state 67 ]
+  ! >               [ shift and go to state 68 ]
+  ! <               [ shift and go to state 69 ]
+  ! GREATER_OR_EQUAL [ shift and go to state 70 ]
+  ! LESS_OR_EQUAL   [ shift and go to state 71 ]
+  ! NOT_EQUAL       [ shift and go to state 72 ]
+  ! EQUAL           [ shift and go to state 73 ]
+  ! PLUS_MATRIX     [ shift and go to state 74 ]
+  ! MINUS_MATRIX    [ shift and go to state 75 ]
+  ! MULTIPLY_MATRIX [ shift and go to state 76 ]
+  ! DIVIDE_MATRIX   [ shift and go to state 77 ]
 
 
-state 93
+state 94
 
     (29) operations -> operations > operations .
     (25) operations -> operations . + operations
@@ -3249,14 +3336,14 @@ state 93
     PRINT           reduce using rule 29 (operations -> operations > operations .)
     RETURN          reduce using rule 29 (operations -> operations > operations .)
     ID              reduce using rule 29 (operations -> operations > operations .)
-    +               shift and go to state 63
-    -               shift and go to state 64
-    *               shift and go to state 65
-    /               shift and go to state 66
-    PLUS_MATRIX     shift and go to state 73
-    MINUS_MATRIX    shift and go to state 74
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
+    +               shift and go to state 64
+    -               shift and go to state 65
+    *               shift and go to state 66
+    /               shift and go to state 67
+    PLUS_MATRIX     shift and go to state 74
+    MINUS_MATRIX    shift and go to state 75
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
 
   ! +               [ reduce using rule 29 (operations -> operations > operations .) ]
   ! -               [ reduce using rule 29 (operations -> operations > operations .) ]
@@ -3266,15 +3353,15 @@ state 93
   ! MINUS_MATRIX    [ reduce using rule 29 (operations -> operations > operations .) ]
   ! MULTIPLY_MATRIX [ reduce using rule 29 (operations -> operations > operations .) ]
   ! DIVIDE_MATRIX   [ reduce using rule 29 (operations -> operations > operations .) ]
-  ! >               [ shift and go to state 67 ]
-  ! <               [ shift and go to state 68 ]
-  ! GREATER_OR_EQUAL [ shift and go to state 69 ]
-  ! LESS_OR_EQUAL   [ shift and go to state 70 ]
-  ! NOT_EQUAL       [ shift and go to state 71 ]
-  ! EQUAL           [ shift and go to state 72 ]
+  ! >               [ shift and go to state 68 ]
+  ! <               [ shift and go to state 69 ]
+  ! GREATER_OR_EQUAL [ shift and go to state 70 ]
+  ! LESS_OR_EQUAL   [ shift and go to state 71 ]
+  ! NOT_EQUAL       [ shift and go to state 72 ]
+  ! EQUAL           [ shift and go to state 73 ]
 
 
-state 94
+state 95
 
     (30) operations -> operations < operations .
     (25) operations -> operations . + operations
@@ -3312,14 +3399,14 @@ state 94
     PRINT           reduce using rule 30 (operations -> operations < operations .)
     RETURN          reduce using rule 30 (operations -> operations < operations .)
     ID              reduce using rule 30 (operations -> operations < operations .)
-    +               shift and go to state 63
-    -               shift and go to state 64
-    *               shift and go to state 65
-    /               shift and go to state 66
-    PLUS_MATRIX     shift and go to state 73
-    MINUS_MATRIX    shift and go to state 74
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
+    +               shift and go to state 64
+    -               shift and go to state 65
+    *               shift and go to state 66
+    /               shift and go to state 67
+    PLUS_MATRIX     shift and go to state 74
+    MINUS_MATRIX    shift and go to state 75
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
 
   ! +               [ reduce using rule 30 (operations -> operations < operations .) ]
   ! -               [ reduce using rule 30 (operations -> operations < operations .) ]
@@ -3329,15 +3416,15 @@ state 94
   ! MINUS_MATRIX    [ reduce using rule 30 (operations -> operations < operations .) ]
   ! MULTIPLY_MATRIX [ reduce using rule 30 (operations -> operations < operations .) ]
   ! DIVIDE_MATRIX   [ reduce using rule 30 (operations -> operations < operations .) ]
-  ! >               [ shift and go to state 67 ]
-  ! <               [ shift and go to state 68 ]
-  ! GREATER_OR_EQUAL [ shift and go to state 69 ]
-  ! LESS_OR_EQUAL   [ shift and go to state 70 ]
-  ! NOT_EQUAL       [ shift and go to state 71 ]
-  ! EQUAL           [ shift and go to state 72 ]
+  ! >               [ shift and go to state 68 ]
+  ! <               [ shift and go to state 69 ]
+  ! GREATER_OR_EQUAL [ shift and go to state 70 ]
+  ! LESS_OR_EQUAL   [ shift and go to state 71 ]
+  ! NOT_EQUAL       [ shift and go to state 72 ]
+  ! EQUAL           [ shift and go to state 73 ]
 
 
-state 95
+state 96
 
     (31) operations -> operations GREATER_OR_EQUAL operations .
     (25) operations -> operations . + operations
@@ -3375,14 +3462,14 @@ state 95
     PRINT           reduce using rule 31 (operations -> operations GREATER_OR_EQUAL operations .)
     RETURN          reduce using rule 31 (operations -> operations GREATER_OR_EQUAL operations .)
     ID              reduce using rule 31 (operations -> operations GREATER_OR_EQUAL operations .)
-    +               shift and go to state 63
-    -               shift and go to state 64
-    *               shift and go to state 65
-    /               shift and go to state 66
-    PLUS_MATRIX     shift and go to state 73
-    MINUS_MATRIX    shift and go to state 74
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
+    +               shift and go to state 64
+    -               shift and go to state 65
+    *               shift and go to state 66
+    /               shift and go to state 67
+    PLUS_MATRIX     shift and go to state 74
+    MINUS_MATRIX    shift and go to state 75
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
 
   ! +               [ reduce using rule 31 (operations -> operations GREATER_OR_EQUAL operations .) ]
   ! -               [ reduce using rule 31 (operations -> operations GREATER_OR_EQUAL operations .) ]
@@ -3392,15 +3479,15 @@ state 95
   ! MINUS_MATRIX    [ reduce using rule 31 (operations -> operations GREATER_OR_EQUAL operations .) ]
   ! MULTIPLY_MATRIX [ reduce using rule 31 (operations -> operations GREATER_OR_EQUAL operations .) ]
   ! DIVIDE_MATRIX   [ reduce using rule 31 (operations -> operations GREATER_OR_EQUAL operations .) ]
-  ! >               [ shift and go to state 67 ]
-  ! <               [ shift and go to state 68 ]
-  ! GREATER_OR_EQUAL [ shift and go to state 69 ]
-  ! LESS_OR_EQUAL   [ shift and go to state 70 ]
-  ! NOT_EQUAL       [ shift and go to state 71 ]
-  ! EQUAL           [ shift and go to state 72 ]
+  ! >               [ shift and go to state 68 ]
+  ! <               [ shift and go to state 69 ]
+  ! GREATER_OR_EQUAL [ shift and go to state 70 ]
+  ! LESS_OR_EQUAL   [ shift and go to state 71 ]
+  ! NOT_EQUAL       [ shift and go to state 72 ]
+  ! EQUAL           [ shift and go to state 73 ]
 
 
-state 96
+state 97
 
     (32) operations -> operations LESS_OR_EQUAL operations .
     (25) operations -> operations . + operations
@@ -3438,14 +3525,14 @@ state 96
     PRINT           reduce using rule 32 (operations -> operations LESS_OR_EQUAL operations .)
     RETURN          reduce using rule 32 (operations -> operations LESS_OR_EQUAL operations .)
     ID              reduce using rule 32 (operations -> operations LESS_OR_EQUAL operations .)
-    +               shift and go to state 63
-    -               shift and go to state 64
-    *               shift and go to state 65
-    /               shift and go to state 66
-    PLUS_MATRIX     shift and go to state 73
-    MINUS_MATRIX    shift and go to state 74
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
+    +               shift and go to state 64
+    -               shift and go to state 65
+    *               shift and go to state 66
+    /               shift and go to state 67
+    PLUS_MATRIX     shift and go to state 74
+    MINUS_MATRIX    shift and go to state 75
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
 
   ! +               [ reduce using rule 32 (operations -> operations LESS_OR_EQUAL operations .) ]
   ! -               [ reduce using rule 32 (operations -> operations LESS_OR_EQUAL operations .) ]
@@ -3455,15 +3542,15 @@ state 96
   ! MINUS_MATRIX    [ reduce using rule 32 (operations -> operations LESS_OR_EQUAL operations .) ]
   ! MULTIPLY_MATRIX [ reduce using rule 32 (operations -> operations LESS_OR_EQUAL operations .) ]
   ! DIVIDE_MATRIX   [ reduce using rule 32 (operations -> operations LESS_OR_EQUAL operations .) ]
-  ! >               [ shift and go to state 67 ]
-  ! <               [ shift and go to state 68 ]
-  ! GREATER_OR_EQUAL [ shift and go to state 69 ]
-  ! LESS_OR_EQUAL   [ shift and go to state 70 ]
-  ! NOT_EQUAL       [ shift and go to state 71 ]
-  ! EQUAL           [ shift and go to state 72 ]
+  ! >               [ shift and go to state 68 ]
+  ! <               [ shift and go to state 69 ]
+  ! GREATER_OR_EQUAL [ shift and go to state 70 ]
+  ! LESS_OR_EQUAL   [ shift and go to state 71 ]
+  ! NOT_EQUAL       [ shift and go to state 72 ]
+  ! EQUAL           [ shift and go to state 73 ]
 
 
-state 97
+state 98
 
     (33) operations -> operations NOT_EQUAL operations .
     (25) operations -> operations . + operations
@@ -3497,18 +3584,18 @@ state 97
     PRINT           reduce using rule 33 (operations -> operations NOT_EQUAL operations .)
     RETURN          reduce using rule 33 (operations -> operations NOT_EQUAL operations .)
     ID              reduce using rule 33 (operations -> operations NOT_EQUAL operations .)
-    +               shift and go to state 63
-    -               shift and go to state 64
-    *               shift and go to state 65
-    /               shift and go to state 66
-    >               shift and go to state 67
-    <               shift and go to state 68
-    GREATER_OR_EQUAL shift and go to state 69
-    LESS_OR_EQUAL   shift and go to state 70
-    PLUS_MATRIX     shift and go to state 73
-    MINUS_MATRIX    shift and go to state 74
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
+    +               shift and go to state 64
+    -               shift and go to state 65
+    *               shift and go to state 66
+    /               shift and go to state 67
+    >               shift and go to state 68
+    <               shift and go to state 69
+    GREATER_OR_EQUAL shift and go to state 70
+    LESS_OR_EQUAL   shift and go to state 71
+    PLUS_MATRIX     shift and go to state 74
+    MINUS_MATRIX    shift and go to state 75
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
 
   ! +               [ reduce using rule 33 (operations -> operations NOT_EQUAL operations .) ]
   ! -               [ reduce using rule 33 (operations -> operations NOT_EQUAL operations .) ]
@@ -3522,11 +3609,11 @@ state 97
   ! MINUS_MATRIX    [ reduce using rule 33 (operations -> operations NOT_EQUAL operations .) ]
   ! MULTIPLY_MATRIX [ reduce using rule 33 (operations -> operations NOT_EQUAL operations .) ]
   ! DIVIDE_MATRIX   [ reduce using rule 33 (operations -> operations NOT_EQUAL operations .) ]
-  ! NOT_EQUAL       [ shift and go to state 71 ]
-  ! EQUAL           [ shift and go to state 72 ]
+  ! NOT_EQUAL       [ shift and go to state 72 ]
+  ! EQUAL           [ shift and go to state 73 ]
 
 
-state 98
+state 99
 
     (34) operations -> operations EQUAL operations .
     (25) operations -> operations . + operations
@@ -3560,18 +3647,18 @@ state 98
     PRINT           reduce using rule 34 (operations -> operations EQUAL operations .)
     RETURN          reduce using rule 34 (operations -> operations EQUAL operations .)
     ID              reduce using rule 34 (operations -> operations EQUAL operations .)
-    +               shift and go to state 63
-    -               shift and go to state 64
-    *               shift and go to state 65
-    /               shift and go to state 66
-    >               shift and go to state 67
-    <               shift and go to state 68
-    GREATER_OR_EQUAL shift and go to state 69
-    LESS_OR_EQUAL   shift and go to state 70
-    PLUS_MATRIX     shift and go to state 73
-    MINUS_MATRIX    shift and go to state 74
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
+    +               shift and go to state 64
+    -               shift and go to state 65
+    *               shift and go to state 66
+    /               shift and go to state 67
+    >               shift and go to state 68
+    <               shift and go to state 69
+    GREATER_OR_EQUAL shift and go to state 70
+    LESS_OR_EQUAL   shift and go to state 71
+    PLUS_MATRIX     shift and go to state 74
+    MINUS_MATRIX    shift and go to state 75
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
 
   ! +               [ reduce using rule 34 (operations -> operations EQUAL operations .) ]
   ! -               [ reduce using rule 34 (operations -> operations EQUAL operations .) ]
@@ -3585,11 +3672,11 @@ state 98
   ! MINUS_MATRIX    [ reduce using rule 34 (operations -> operations EQUAL operations .) ]
   ! MULTIPLY_MATRIX [ reduce using rule 34 (operations -> operations EQUAL operations .) ]
   ! DIVIDE_MATRIX   [ reduce using rule 34 (operations -> operations EQUAL operations .) ]
-  ! NOT_EQUAL       [ shift and go to state 71 ]
-  ! EQUAL           [ shift and go to state 72 ]
+  ! NOT_EQUAL       [ shift and go to state 72 ]
+  ! EQUAL           [ shift and go to state 73 ]
 
 
-state 99
+state 100
 
     (35) operations -> operations PLUS_MATRIX operations .
     (25) operations -> operations . + operations
@@ -3631,28 +3718,28 @@ state 99
     PRINT           reduce using rule 35 (operations -> operations PLUS_MATRIX operations .)
     RETURN          reduce using rule 35 (operations -> operations PLUS_MATRIX operations .)
     ID              reduce using rule 35 (operations -> operations PLUS_MATRIX operations .)
-    *               shift and go to state 65
-    /               shift and go to state 66
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
+    *               shift and go to state 66
+    /               shift and go to state 67
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
 
   ! *               [ reduce using rule 35 (operations -> operations PLUS_MATRIX operations .) ]
   ! /               [ reduce using rule 35 (operations -> operations PLUS_MATRIX operations .) ]
   ! MULTIPLY_MATRIX [ reduce using rule 35 (operations -> operations PLUS_MATRIX operations .) ]
   ! DIVIDE_MATRIX   [ reduce using rule 35 (operations -> operations PLUS_MATRIX operations .) ]
-  ! +               [ shift and go to state 63 ]
-  ! -               [ shift and go to state 64 ]
-  ! >               [ shift and go to state 67 ]
-  ! <               [ shift and go to state 68 ]
-  ! GREATER_OR_EQUAL [ shift and go to state 69 ]
-  ! LESS_OR_EQUAL   [ shift and go to state 70 ]
-  ! NOT_EQUAL       [ shift and go to state 71 ]
-  ! EQUAL           [ shift and go to state 72 ]
-  ! PLUS_MATRIX     [ shift and go to state 73 ]
-  ! MINUS_MATRIX    [ shift and go to state 74 ]
+  ! +               [ shift and go to state 64 ]
+  ! -               [ shift and go to state 65 ]
+  ! >               [ shift and go to state 68 ]
+  ! <               [ shift and go to state 69 ]
+  ! GREATER_OR_EQUAL [ shift and go to state 70 ]
+  ! LESS_OR_EQUAL   [ shift and go to state 71 ]
+  ! NOT_EQUAL       [ shift and go to state 72 ]
+  ! EQUAL           [ shift and go to state 73 ]
+  ! PLUS_MATRIX     [ shift and go to state 74 ]
+  ! MINUS_MATRIX    [ shift and go to state 75 ]
 
 
-state 100
+state 101
 
     (36) operations -> operations MINUS_MATRIX operations .
     (25) operations -> operations . + operations
@@ -3694,28 +3781,28 @@ state 100
     PRINT           reduce using rule 36 (operations -> operations MINUS_MATRIX operations .)
     RETURN          reduce using rule 36 (operations -> operations MINUS_MATRIX operations .)
     ID              reduce using rule 36 (operations -> operations MINUS_MATRIX operations .)
-    *               shift and go to state 65
-    /               shift and go to state 66
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
+    *               shift and go to state 66
+    /               shift and go to state 67
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
 
   ! *               [ reduce using rule 36 (operations -> operations MINUS_MATRIX operations .) ]
   ! /               [ reduce using rule 36 (operations -> operations MINUS_MATRIX operations .) ]
   ! MULTIPLY_MATRIX [ reduce using rule 36 (operations -> operations MINUS_MATRIX operations .) ]
   ! DIVIDE_MATRIX   [ reduce using rule 36 (operations -> operations MINUS_MATRIX operations .) ]
-  ! +               [ shift and go to state 63 ]
-  ! -               [ shift and go to state 64 ]
-  ! >               [ shift and go to state 67 ]
-  ! <               [ shift and go to state 68 ]
-  ! GREATER_OR_EQUAL [ shift and go to state 69 ]
-  ! LESS_OR_EQUAL   [ shift and go to state 70 ]
-  ! NOT_EQUAL       [ shift and go to state 71 ]
-  ! EQUAL           [ shift and go to state 72 ]
-  ! PLUS_MATRIX     [ shift and go to state 73 ]
-  ! MINUS_MATRIX    [ shift and go to state 74 ]
+  ! +               [ shift and go to state 64 ]
+  ! -               [ shift and go to state 65 ]
+  ! >               [ shift and go to state 68 ]
+  ! <               [ shift and go to state 69 ]
+  ! GREATER_OR_EQUAL [ shift and go to state 70 ]
+  ! LESS_OR_EQUAL   [ shift and go to state 71 ]
+  ! NOT_EQUAL       [ shift and go to state 72 ]
+  ! EQUAL           [ shift and go to state 73 ]
+  ! PLUS_MATRIX     [ shift and go to state 74 ]
+  ! MINUS_MATRIX    [ shift and go to state 75 ]
 
 
-state 101
+state 102
 
     (37) operations -> operations MULTIPLY_MATRIX operations .
     (25) operations -> operations . + operations
@@ -3762,23 +3849,23 @@ state 101
     RETURN          reduce using rule 37 (operations -> operations MULTIPLY_MATRIX operations .)
     ID              reduce using rule 37 (operations -> operations MULTIPLY_MATRIX operations .)
 
-  ! +               [ shift and go to state 63 ]
-  ! -               [ shift and go to state 64 ]
-  ! *               [ shift and go to state 65 ]
-  ! /               [ shift and go to state 66 ]
-  ! >               [ shift and go to state 67 ]
-  ! <               [ shift and go to state 68 ]
-  ! GREATER_OR_EQUAL [ shift and go to state 69 ]
-  ! LESS_OR_EQUAL   [ shift and go to state 70 ]
-  ! NOT_EQUAL       [ shift and go to state 71 ]
-  ! EQUAL           [ shift and go to state 72 ]
-  ! PLUS_MATRIX     [ shift and go to state 73 ]
-  ! MINUS_MATRIX    [ shift and go to state 74 ]
-  ! MULTIPLY_MATRIX [ shift and go to state 75 ]
-  ! DIVIDE_MATRIX   [ shift and go to state 76 ]
+  ! +               [ shift and go to state 64 ]
+  ! -               [ shift and go to state 65 ]
+  ! *               [ shift and go to state 66 ]
+  ! /               [ shift and go to state 67 ]
+  ! >               [ shift and go to state 68 ]
+  ! <               [ shift and go to state 69 ]
+  ! GREATER_OR_EQUAL [ shift and go to state 70 ]
+  ! LESS_OR_EQUAL   [ shift and go to state 71 ]
+  ! NOT_EQUAL       [ shift and go to state 72 ]
+  ! EQUAL           [ shift and go to state 73 ]
+  ! PLUS_MATRIX     [ shift and go to state 74 ]
+  ! MINUS_MATRIX    [ shift and go to state 75 ]
+  ! MULTIPLY_MATRIX [ shift and go to state 76 ]
+  ! DIVIDE_MATRIX   [ shift and go to state 77 ]
 
 
-state 102
+state 103
 
     (38) operations -> operations DIVIDE_MATRIX operations .
     (25) operations -> operations . + operations
@@ -3825,23 +3912,23 @@ state 102
     RETURN          reduce using rule 38 (operations -> operations DIVIDE_MATRIX operations .)
     ID              reduce using rule 38 (operations -> operations DIVIDE_MATRIX operations .)
 
-  ! +               [ shift and go to state 63 ]
-  ! -               [ shift and go to state 64 ]
-  ! *               [ shift and go to state 65 ]
-  ! /               [ shift and go to state 66 ]
-  ! >               [ shift and go to state 67 ]
-  ! <               [ shift and go to state 68 ]
-  ! GREATER_OR_EQUAL [ shift and go to state 69 ]
-  ! LESS_OR_EQUAL   [ shift and go to state 70 ]
-  ! NOT_EQUAL       [ shift and go to state 71 ]
-  ! EQUAL           [ shift and go to state 72 ]
-  ! PLUS_MATRIX     [ shift and go to state 73 ]
-  ! MINUS_MATRIX    [ shift and go to state 74 ]
-  ! MULTIPLY_MATRIX [ shift and go to state 75 ]
-  ! DIVIDE_MATRIX   [ shift and go to state 76 ]
+  ! +               [ shift and go to state 64 ]
+  ! -               [ shift and go to state 65 ]
+  ! *               [ shift and go to state 66 ]
+  ! /               [ shift and go to state 67 ]
+  ! >               [ shift and go to state 68 ]
+  ! <               [ shift and go to state 69 ]
+  ! GREATER_OR_EQUAL [ shift and go to state 70 ]
+  ! LESS_OR_EQUAL   [ shift and go to state 71 ]
+  ! NOT_EQUAL       [ shift and go to state 72 ]
+  ! EQUAL           [ shift and go to state 73 ]
+  ! PLUS_MATRIX     [ shift and go to state 74 ]
+  ! MINUS_MATRIX    [ shift and go to state 75 ]
+  ! MULTIPLY_MATRIX [ shift and go to state 76 ]
+  ! DIVIDE_MATRIX   [ shift and go to state 77 ]
 
 
-state 103
+state 104
 
     (39) operations -> ( operations ) .
     (40) operations -> ( operations ) . '
@@ -3874,39 +3961,39 @@ state 103
     PRINT           reduce using rule 39 (operations -> ( operations ) .)
     RETURN          reduce using rule 39 (operations -> ( operations ) .)
     ID              reduce using rule 39 (operations -> ( operations ) .)
-    '               shift and go to state 111
-
-
-state 104
-
-    (47) value -> ZEROS ( INT . )
-
-    )               shift and go to state 112
+    '               shift and go to state 112
 
 
 state 105
 
-    (48) value -> ONES ( INT . )
+    (48) value -> ZEROS ( INT . )
 
     )               shift and go to state 113
 
 
 state 106
 
-    (49) value -> EYE ( INT . )
+    (49) value -> ONES ( INT . )
 
     )               shift and go to state 114
 
 
 state 107
 
-    (55) array_list -> array_list , array .
+    (50) value -> EYE ( INT . )
 
-    ]               reduce using rule 55 (array_list -> array_list , array .)
-    ,               reduce using rule 55 (array_list -> array_list , array .)
+    )               shift and go to state 115
 
 
 state 108
+
+    (56) array_list -> array_list , array .
+
+    ]               reduce using rule 56 (array_list -> array_list , array .)
+    ,               reduce using rule 56 (array_list -> array_list , array .)
+
+
+state 109
 
     (17) instruction_if -> IF ( condition ) instruction .
     (18) instruction_if -> IF ( condition ) instruction . ELSE instruction
@@ -3922,12 +4009,12 @@ state 108
     ID              reduce using rule 17 (instruction_if -> IF ( condition ) instruction .)
     $end            reduce using rule 17 (instruction_if -> IF ( condition ) instruction .)
     }               reduce using rule 17 (instruction_if -> IF ( condition ) instruction .)
-    ELSE            shift and go to state 115
+    ELSE            shift and go to state 116
 
   ! ELSE            [ reduce using rule 17 (instruction_if -> IF ( condition ) instruction .) ]
 
 
-state 109
+state 110
 
     (19) instruction_loop -> FOR ID = operations : . operations instruction
     (25) operations -> . operations + operations
@@ -3949,34 +4036,36 @@ state 109
     (41) operations -> . array
     (42) operations -> . value
     (43) operations -> . - operations
-    (53) array -> . [ array_list ]
-    (54) array -> . [ operations_list ]
+    (54) array -> . [ array_list ]
+    (55) array -> . [ operations_list ]
     (44) value -> . identifier
     (45) value -> . FLOAT
     (46) value -> . INT
-    (47) value -> . ZEROS ( INT )
-    (48) value -> . ONES ( INT )
-    (49) value -> . EYE ( INT )
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (47) value -> . STRING
+    (48) value -> . ZEROS ( INT )
+    (49) value -> . ONES ( INT )
+    (50) value -> . EYE ( INT )
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     (               shift and go to state 39
     -               shift and go to state 38
     [               shift and go to state 32
     FLOAT           shift and go to state 43
     INT             shift and go to state 44
-    ZEROS           shift and go to state 45
-    ONES            shift and go to state 46
-    EYE             shift and go to state 47
+    STRING          shift and go to state 45
+    ZEROS           shift and go to state 46
+    ONES            shift and go to state 47
+    EYE             shift and go to state 48
     ID              shift and go to state 15
 
-    operations                     shift and go to state 116
+    operations                     shift and go to state 117
     array                          shift and go to state 40
     value                          shift and go to state 41
     identifier                     shift and go to state 42
 
-state 110
+state 111
 
     (20) instruction_loop -> WHILE ( condition ) instruction .
 
@@ -3994,7 +4083,7 @@ state 110
     ELSE            reduce using rule 20 (instruction_loop -> WHILE ( condition ) instruction .)
 
 
-state 111
+state 112
 
     (40) operations -> ( operations ) ' .
 
@@ -4028,109 +4117,109 @@ state 111
     ID              reduce using rule 40 (operations -> ( operations ) ' .)
 
 
-state 112
-
-    (47) value -> ZEROS ( INT ) .
-
-    +               reduce using rule 47 (value -> ZEROS ( INT ) .)
-    -               reduce using rule 47 (value -> ZEROS ( INT ) .)
-    *               reduce using rule 47 (value -> ZEROS ( INT ) .)
-    /               reduce using rule 47 (value -> ZEROS ( INT ) .)
-    >               reduce using rule 47 (value -> ZEROS ( INT ) .)
-    <               reduce using rule 47 (value -> ZEROS ( INT ) .)
-    GREATER_OR_EQUAL reduce using rule 47 (value -> ZEROS ( INT ) .)
-    LESS_OR_EQUAL   reduce using rule 47 (value -> ZEROS ( INT ) .)
-    NOT_EQUAL       reduce using rule 47 (value -> ZEROS ( INT ) .)
-    EQUAL           reduce using rule 47 (value -> ZEROS ( INT ) .)
-    PLUS_MATRIX     reduce using rule 47 (value -> ZEROS ( INT ) .)
-    MINUS_MATRIX    reduce using rule 47 (value -> ZEROS ( INT ) .)
-    MULTIPLY_MATRIX reduce using rule 47 (value -> ZEROS ( INT ) .)
-    DIVIDE_MATRIX   reduce using rule 47 (value -> ZEROS ( INT ) .)
-    ,               reduce using rule 47 (value -> ZEROS ( INT ) .)
-    ;               reduce using rule 47 (value -> ZEROS ( INT ) .)
-    ]               reduce using rule 47 (value -> ZEROS ( INT ) .)
-    )               reduce using rule 47 (value -> ZEROS ( INT ) .)
-    :               reduce using rule 47 (value -> ZEROS ( INT ) .)
-    BREAK           reduce using rule 47 (value -> ZEROS ( INT ) .)
-    CONTINUE        reduce using rule 47 (value -> ZEROS ( INT ) .)
-    {               reduce using rule 47 (value -> ZEROS ( INT ) .)
-    IF              reduce using rule 47 (value -> ZEROS ( INT ) .)
-    FOR             reduce using rule 47 (value -> ZEROS ( INT ) .)
-    WHILE           reduce using rule 47 (value -> ZEROS ( INT ) .)
-    PRINT           reduce using rule 47 (value -> ZEROS ( INT ) .)
-    RETURN          reduce using rule 47 (value -> ZEROS ( INT ) .)
-    ID              reduce using rule 47 (value -> ZEROS ( INT ) .)
-
-
 state 113
 
-    (48) value -> ONES ( INT ) .
+    (48) value -> ZEROS ( INT ) .
 
-    +               reduce using rule 48 (value -> ONES ( INT ) .)
-    -               reduce using rule 48 (value -> ONES ( INT ) .)
-    *               reduce using rule 48 (value -> ONES ( INT ) .)
-    /               reduce using rule 48 (value -> ONES ( INT ) .)
-    >               reduce using rule 48 (value -> ONES ( INT ) .)
-    <               reduce using rule 48 (value -> ONES ( INT ) .)
-    GREATER_OR_EQUAL reduce using rule 48 (value -> ONES ( INT ) .)
-    LESS_OR_EQUAL   reduce using rule 48 (value -> ONES ( INT ) .)
-    NOT_EQUAL       reduce using rule 48 (value -> ONES ( INT ) .)
-    EQUAL           reduce using rule 48 (value -> ONES ( INT ) .)
-    PLUS_MATRIX     reduce using rule 48 (value -> ONES ( INT ) .)
-    MINUS_MATRIX    reduce using rule 48 (value -> ONES ( INT ) .)
-    MULTIPLY_MATRIX reduce using rule 48 (value -> ONES ( INT ) .)
-    DIVIDE_MATRIX   reduce using rule 48 (value -> ONES ( INT ) .)
-    ,               reduce using rule 48 (value -> ONES ( INT ) .)
-    ;               reduce using rule 48 (value -> ONES ( INT ) .)
-    ]               reduce using rule 48 (value -> ONES ( INT ) .)
-    )               reduce using rule 48 (value -> ONES ( INT ) .)
-    :               reduce using rule 48 (value -> ONES ( INT ) .)
-    BREAK           reduce using rule 48 (value -> ONES ( INT ) .)
-    CONTINUE        reduce using rule 48 (value -> ONES ( INT ) .)
-    {               reduce using rule 48 (value -> ONES ( INT ) .)
-    IF              reduce using rule 48 (value -> ONES ( INT ) .)
-    FOR             reduce using rule 48 (value -> ONES ( INT ) .)
-    WHILE           reduce using rule 48 (value -> ONES ( INT ) .)
-    PRINT           reduce using rule 48 (value -> ONES ( INT ) .)
-    RETURN          reduce using rule 48 (value -> ONES ( INT ) .)
-    ID              reduce using rule 48 (value -> ONES ( INT ) .)
+    +               reduce using rule 48 (value -> ZEROS ( INT ) .)
+    -               reduce using rule 48 (value -> ZEROS ( INT ) .)
+    *               reduce using rule 48 (value -> ZEROS ( INT ) .)
+    /               reduce using rule 48 (value -> ZEROS ( INT ) .)
+    >               reduce using rule 48 (value -> ZEROS ( INT ) .)
+    <               reduce using rule 48 (value -> ZEROS ( INT ) .)
+    GREATER_OR_EQUAL reduce using rule 48 (value -> ZEROS ( INT ) .)
+    LESS_OR_EQUAL   reduce using rule 48 (value -> ZEROS ( INT ) .)
+    NOT_EQUAL       reduce using rule 48 (value -> ZEROS ( INT ) .)
+    EQUAL           reduce using rule 48 (value -> ZEROS ( INT ) .)
+    PLUS_MATRIX     reduce using rule 48 (value -> ZEROS ( INT ) .)
+    MINUS_MATRIX    reduce using rule 48 (value -> ZEROS ( INT ) .)
+    MULTIPLY_MATRIX reduce using rule 48 (value -> ZEROS ( INT ) .)
+    DIVIDE_MATRIX   reduce using rule 48 (value -> ZEROS ( INT ) .)
+    ,               reduce using rule 48 (value -> ZEROS ( INT ) .)
+    ;               reduce using rule 48 (value -> ZEROS ( INT ) .)
+    ]               reduce using rule 48 (value -> ZEROS ( INT ) .)
+    )               reduce using rule 48 (value -> ZEROS ( INT ) .)
+    :               reduce using rule 48 (value -> ZEROS ( INT ) .)
+    BREAK           reduce using rule 48 (value -> ZEROS ( INT ) .)
+    CONTINUE        reduce using rule 48 (value -> ZEROS ( INT ) .)
+    {               reduce using rule 48 (value -> ZEROS ( INT ) .)
+    IF              reduce using rule 48 (value -> ZEROS ( INT ) .)
+    FOR             reduce using rule 48 (value -> ZEROS ( INT ) .)
+    WHILE           reduce using rule 48 (value -> ZEROS ( INT ) .)
+    PRINT           reduce using rule 48 (value -> ZEROS ( INT ) .)
+    RETURN          reduce using rule 48 (value -> ZEROS ( INT ) .)
+    ID              reduce using rule 48 (value -> ZEROS ( INT ) .)
 
 
 state 114
 
-    (49) value -> EYE ( INT ) .
+    (49) value -> ONES ( INT ) .
 
-    +               reduce using rule 49 (value -> EYE ( INT ) .)
-    -               reduce using rule 49 (value -> EYE ( INT ) .)
-    *               reduce using rule 49 (value -> EYE ( INT ) .)
-    /               reduce using rule 49 (value -> EYE ( INT ) .)
-    >               reduce using rule 49 (value -> EYE ( INT ) .)
-    <               reduce using rule 49 (value -> EYE ( INT ) .)
-    GREATER_OR_EQUAL reduce using rule 49 (value -> EYE ( INT ) .)
-    LESS_OR_EQUAL   reduce using rule 49 (value -> EYE ( INT ) .)
-    NOT_EQUAL       reduce using rule 49 (value -> EYE ( INT ) .)
-    EQUAL           reduce using rule 49 (value -> EYE ( INT ) .)
-    PLUS_MATRIX     reduce using rule 49 (value -> EYE ( INT ) .)
-    MINUS_MATRIX    reduce using rule 49 (value -> EYE ( INT ) .)
-    MULTIPLY_MATRIX reduce using rule 49 (value -> EYE ( INT ) .)
-    DIVIDE_MATRIX   reduce using rule 49 (value -> EYE ( INT ) .)
-    ,               reduce using rule 49 (value -> EYE ( INT ) .)
-    ;               reduce using rule 49 (value -> EYE ( INT ) .)
-    ]               reduce using rule 49 (value -> EYE ( INT ) .)
-    )               reduce using rule 49 (value -> EYE ( INT ) .)
-    :               reduce using rule 49 (value -> EYE ( INT ) .)
-    BREAK           reduce using rule 49 (value -> EYE ( INT ) .)
-    CONTINUE        reduce using rule 49 (value -> EYE ( INT ) .)
-    {               reduce using rule 49 (value -> EYE ( INT ) .)
-    IF              reduce using rule 49 (value -> EYE ( INT ) .)
-    FOR             reduce using rule 49 (value -> EYE ( INT ) .)
-    WHILE           reduce using rule 49 (value -> EYE ( INT ) .)
-    PRINT           reduce using rule 49 (value -> EYE ( INT ) .)
-    RETURN          reduce using rule 49 (value -> EYE ( INT ) .)
-    ID              reduce using rule 49 (value -> EYE ( INT ) .)
+    +               reduce using rule 49 (value -> ONES ( INT ) .)
+    -               reduce using rule 49 (value -> ONES ( INT ) .)
+    *               reduce using rule 49 (value -> ONES ( INT ) .)
+    /               reduce using rule 49 (value -> ONES ( INT ) .)
+    >               reduce using rule 49 (value -> ONES ( INT ) .)
+    <               reduce using rule 49 (value -> ONES ( INT ) .)
+    GREATER_OR_EQUAL reduce using rule 49 (value -> ONES ( INT ) .)
+    LESS_OR_EQUAL   reduce using rule 49 (value -> ONES ( INT ) .)
+    NOT_EQUAL       reduce using rule 49 (value -> ONES ( INT ) .)
+    EQUAL           reduce using rule 49 (value -> ONES ( INT ) .)
+    PLUS_MATRIX     reduce using rule 49 (value -> ONES ( INT ) .)
+    MINUS_MATRIX    reduce using rule 49 (value -> ONES ( INT ) .)
+    MULTIPLY_MATRIX reduce using rule 49 (value -> ONES ( INT ) .)
+    DIVIDE_MATRIX   reduce using rule 49 (value -> ONES ( INT ) .)
+    ,               reduce using rule 49 (value -> ONES ( INT ) .)
+    ;               reduce using rule 49 (value -> ONES ( INT ) .)
+    ]               reduce using rule 49 (value -> ONES ( INT ) .)
+    )               reduce using rule 49 (value -> ONES ( INT ) .)
+    :               reduce using rule 49 (value -> ONES ( INT ) .)
+    BREAK           reduce using rule 49 (value -> ONES ( INT ) .)
+    CONTINUE        reduce using rule 49 (value -> ONES ( INT ) .)
+    {               reduce using rule 49 (value -> ONES ( INT ) .)
+    IF              reduce using rule 49 (value -> ONES ( INT ) .)
+    FOR             reduce using rule 49 (value -> ONES ( INT ) .)
+    WHILE           reduce using rule 49 (value -> ONES ( INT ) .)
+    PRINT           reduce using rule 49 (value -> ONES ( INT ) .)
+    RETURN          reduce using rule 49 (value -> ONES ( INT ) .)
+    ID              reduce using rule 49 (value -> ONES ( INT ) .)
 
 
 state 115
+
+    (50) value -> EYE ( INT ) .
+
+    +               reduce using rule 50 (value -> EYE ( INT ) .)
+    -               reduce using rule 50 (value -> EYE ( INT ) .)
+    *               reduce using rule 50 (value -> EYE ( INT ) .)
+    /               reduce using rule 50 (value -> EYE ( INT ) .)
+    >               reduce using rule 50 (value -> EYE ( INT ) .)
+    <               reduce using rule 50 (value -> EYE ( INT ) .)
+    GREATER_OR_EQUAL reduce using rule 50 (value -> EYE ( INT ) .)
+    LESS_OR_EQUAL   reduce using rule 50 (value -> EYE ( INT ) .)
+    NOT_EQUAL       reduce using rule 50 (value -> EYE ( INT ) .)
+    EQUAL           reduce using rule 50 (value -> EYE ( INT ) .)
+    PLUS_MATRIX     reduce using rule 50 (value -> EYE ( INT ) .)
+    MINUS_MATRIX    reduce using rule 50 (value -> EYE ( INT ) .)
+    MULTIPLY_MATRIX reduce using rule 50 (value -> EYE ( INT ) .)
+    DIVIDE_MATRIX   reduce using rule 50 (value -> EYE ( INT ) .)
+    ,               reduce using rule 50 (value -> EYE ( INT ) .)
+    ;               reduce using rule 50 (value -> EYE ( INT ) .)
+    ]               reduce using rule 50 (value -> EYE ( INT ) .)
+    )               reduce using rule 50 (value -> EYE ( INT ) .)
+    :               reduce using rule 50 (value -> EYE ( INT ) .)
+    BREAK           reduce using rule 50 (value -> EYE ( INT ) .)
+    CONTINUE        reduce using rule 50 (value -> EYE ( INT ) .)
+    {               reduce using rule 50 (value -> EYE ( INT ) .)
+    IF              reduce using rule 50 (value -> EYE ( INT ) .)
+    FOR             reduce using rule 50 (value -> EYE ( INT ) .)
+    WHILE           reduce using rule 50 (value -> EYE ( INT ) .)
+    PRINT           reduce using rule 50 (value -> EYE ( INT ) .)
+    RETURN          reduce using rule 50 (value -> EYE ( INT ) .)
+    ID              reduce using rule 50 (value -> EYE ( INT ) .)
+
+
+state 116
 
     (18) instruction_if -> IF ( condition ) instruction ELSE . instruction
     (4) instruction -> . assignment ;
@@ -4153,9 +4242,9 @@ state 115
     (21) instruction_print -> . PRINT operations_list
     (22) instruction_return -> . RETURN operations
     (23) instruction_return -> . RETURN
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
     BREAK           shift and go to state 9
     CONTINUE        shift and go to state 10
@@ -4167,7 +4256,7 @@ state 115
     RETURN          shift and go to state 18
     ID              shift and go to state 15
 
-    instruction                    shift and go to state 117
+    instruction                    shift and go to state 118
     assignment                     shift and go to state 4
     instruction_if                 shift and go to state 5
     instruction_loop               shift and go to state 6
@@ -4175,7 +4264,7 @@ state 115
     instruction_return             shift and go to state 8
     identifier                     shift and go to state 12
 
-state 116
+state 117
 
     (19) instruction_loop -> FOR ID = operations : operations . instruction
     (25) operations -> operations . + operations
@@ -4212,24 +4301,24 @@ state 116
     (21) instruction_print -> . PRINT operations_list
     (22) instruction_return -> . RETURN operations
     (23) instruction_return -> . RETURN
-    (50) identifier -> . ID
-    (51) identifier -> . identifier array
-    (52) identifier -> . identifier '
+    (51) identifier -> . ID
+    (52) identifier -> . identifier array
+    (53) identifier -> . identifier '
 
-    +               shift and go to state 63
-    -               shift and go to state 64
-    *               shift and go to state 65
-    /               shift and go to state 66
-    >               shift and go to state 67
-    <               shift and go to state 68
-    GREATER_OR_EQUAL shift and go to state 69
-    LESS_OR_EQUAL   shift and go to state 70
-    NOT_EQUAL       shift and go to state 71
-    EQUAL           shift and go to state 72
-    PLUS_MATRIX     shift and go to state 73
-    MINUS_MATRIX    shift and go to state 74
-    MULTIPLY_MATRIX shift and go to state 75
-    DIVIDE_MATRIX   shift and go to state 76
+    +               shift and go to state 64
+    -               shift and go to state 65
+    *               shift and go to state 66
+    /               shift and go to state 67
+    >               shift and go to state 68
+    <               shift and go to state 69
+    GREATER_OR_EQUAL shift and go to state 70
+    LESS_OR_EQUAL   shift and go to state 71
+    NOT_EQUAL       shift and go to state 72
+    EQUAL           shift and go to state 73
+    PLUS_MATRIX     shift and go to state 74
+    MINUS_MATRIX    shift and go to state 75
+    MULTIPLY_MATRIX shift and go to state 76
+    DIVIDE_MATRIX   shift and go to state 77
     BREAK           shift and go to state 9
     CONTINUE        shift and go to state 10
     {               shift and go to state 11
@@ -4240,7 +4329,7 @@ state 116
     RETURN          shift and go to state 18
     ID              shift and go to state 15
 
-    instruction                    shift and go to state 118
+    instruction                    shift and go to state 119
     assignment                     shift and go to state 4
     instruction_if                 shift and go to state 5
     instruction_loop               shift and go to state 6
@@ -4248,7 +4337,7 @@ state 116
     instruction_return             shift and go to state 8
     identifier                     shift and go to state 12
 
-state 117
+state 118
 
     (18) instruction_if -> IF ( condition ) instruction ELSE instruction .
 
@@ -4266,7 +4355,7 @@ state 117
     ELSE            reduce using rule 18 (instruction_if -> IF ( condition ) instruction ELSE instruction .)
 
 
-state 118
+state 119
 
     (19) instruction_loop -> FOR ID = operations : operations instruction .
 
@@ -4286,6 +4375,6 @@ state 118
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: reduce/reduce conflict in state 57 resolved using rule (operations -> array)
-WARNING: rejected rule (array_list -> array) in state 57
+WARNING: reduce/reduce conflict in state 58 resolved using rule (operations -> array)
+WARNING: rejected rule (array_list -> array) in state 58
 WARNING: Rule (array_list -> array) is never reduced
