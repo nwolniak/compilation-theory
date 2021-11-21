@@ -127,11 +127,11 @@ class TreePrinter:
         TreePrinter.printRow(indent, "VECTOR")
         self.inside_array.printTree(indent + 1)
 
-    @addToClass(AST.ArrayList)
-    def printTree(self, indent=0):
-        TreePrinter.printRow(indent, "VECTOR")
-        for some_list in self.any_list:
-            some_list.printTree(indent + 1)
+    # @addToClass(AST.ArrayList)
+    # def printTree(self, indent=0):
+    #     TreePrinter.printRow(indent, "VECTOR")
+    #     for some_list in self.any_list:
+    #         some_list.printTree(indent + 1)
 
     @addToClass(AST.OperationsList)
     def printTree(self, indent=0):

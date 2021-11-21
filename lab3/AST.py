@@ -125,13 +125,13 @@ class Array(Node):
         self.inside_array = inside_array
 
 
-class ArrayList(Node):
-    def __init__(self, any_list, array):
-        self.any_list = []
-        if any_list:
-            self.any_list += any_list
-        if array:
-            self.any_list.append(array)
+# class ArrayList(Node):
+#     def __init__(self, any_list, array):
+#         self.any_list = []
+#         if any_list:
+#             self.any_list += any_list
+#         if array:
+#             self.any_list.append(array)
 
 
 class OperationsList(Node):

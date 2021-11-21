@@ -181,11 +181,11 @@ def p_value(p):
              | ZEROS '(' INT ')'
              | ONES '(' INT ')'
              | EYE '(' INT ')' """
-    if isinstance(p[1], int):
+    if p.slice[1].type == "INT":
         p[0] = AST.IntNum(p[1])
-    elif isinstance(p[1], float):
+    elif p.slice[1].type == "FLOAT":
         p[0] = AST.FloatNum(p[1])
-    elif isinstance(p[1], type("")):
+    elif p.slice[1].type == "STRING":
         p[0] = AST.String(p[1])
     elif p[1] == "zeros":
         p[0] = AST.Zeros(p[3])
@@ -212,18 +212,19 @@ def p_identifier(p):
 
 # Tablica
 def p_array(p):
-    """array : '[' array_list ']'
-            | '[' operations_list ']' """
+    # """array : '[' array_list ']'
+    #         | '[' operations_list ']' """
+    """array : '[' operations_list ']' """
     p[0] = AST.Array(p[2])
 
 
-def p_array_list(p):
-    """array_list : array_list ',' array
-                    | array """
-    if len(p) == 4:
-        p[0] = AST.ArrayList(p[1], p[3])
-    else:
-        p[0] = p[1]
+# def p_array_list(p):
+#     """array_list : array_list ',' array
+#                     | array """
+#     if len(p) == 4:
+#         p[0] = AST.ArrayList(p[1], p[3])
+#     else:
+#         p[0] = p[1]
 
 
 def p_operations_list(p):
