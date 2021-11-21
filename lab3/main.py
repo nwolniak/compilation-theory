@@ -1,4 +1,3 @@
-
 import sys
 import ply.yacc as yacc
 import Mparser
@@ -15,7 +14,7 @@ if __name__ == '__main__':
         print("Cannot open {0} file".format(filename))
         sys.exit(0)
 
-    parser = yacc.yacc(module=Mparser)
+    parser = Mparser.parser
+    lexer = scanner.lexer
     text = file.read()
-    ast = parser.parse(text, lexer=scanner.lexer)
-    ast.printTree()
+    ast = parser.parse(text, lexer=lexer)
