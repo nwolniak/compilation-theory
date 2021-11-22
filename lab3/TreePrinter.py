@@ -47,12 +47,11 @@ class TreePrinter:
     @addToClass(AST.ForLoop)
     def printTree(self, indent=0):
         TreePrinter.printRow(indent, "FOR")
-        TreePrinter.printRow(indent + 1, "=")
-        TreePrinter.printRow(indent + 2, self.id)
-        TreePrinter.printRow(indent + 2, ":")
-        self.start_range.printTree(indent + 3)
-        self.end_range.printTree(indent + 3)
-        self.instruction.printTree(indent + 2)
+        TreePrinter.printRow(indent + 1, self.id)
+        TreePrinter.printRow(indent + 1, "RANGE")
+        self.start_range.printTree(indent + 2)
+        self.end_range.printTree(indent + 2)
+        self.instruction.printTree(indent + 1)
 
     @addToClass(AST.WhileLoop)
     def printTree(self, indent=0):
@@ -142,4 +141,3 @@ class TreePrinter:
     @addToClass(AST.Error)
     def printTree(self, indent=0):
         pass
-        # fill in the body

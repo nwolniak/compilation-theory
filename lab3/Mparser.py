@@ -38,7 +38,6 @@ def p_program(p):
     p[0] = AST.Program(p[1])
     if not error_occurred:
         p[0].printTree(0)
-    # done
 
 
 # Instrukcje w programie
@@ -124,8 +123,8 @@ def p_condition(p):
     p[0] = p[1]
 
 
-# Operacje binarne
-def p_operations_binary(p):
+# Operacje
+def p_operations(p):
     """operations : operations '+' operations
                       | operations '-' operations
                       | operations '*' operations
@@ -209,6 +208,7 @@ def p_array(p):
     p[0] = AST.Array(p[2])
 
 
+# Listowanie operacji
 def p_operations_list(p):
     """operations_list : operations_list ',' operations
                         | operations"""
