@@ -16,25 +16,21 @@ class Instructions(Node):
             self.instructions.append(instruction)
 
 
-class Instruction(Node):
-    pass
-
-
-class Assignment(Instruction):
+class Assignment(Node):
     def __init__(self, op, identifier, operations):
         self.op = op
         self.identifier = identifier
         self.operations = operations
 
 
-class IfInstruction(Instruction):
+class IfInstruction(Node):
     def __init__(self, condition, if_instruction, else_instruction=None):
         self.condition = condition
         self.if_instruction = if_instruction
         self.else_instruction = else_instruction
 
 
-class ForLoop(Instruction):
+class ForLoop(Node):
     def __init__(self, id, start_range, end_range, instruction):
         self.id = id
         self.start_range = start_range
@@ -42,44 +38,31 @@ class ForLoop(Instruction):
         self.instruction = instruction
 
 
-class WhileLoop(Instruction):
+class WhileLoop(Node):
     def __init__(self, condition, instruction):
         self.condition = condition
         self.instruction = instruction
 
 
-class PrintInstruction(Instruction):
+class PrintInstruction(Node):
     def __init__(self, operations_list):
         self.operations_list = operations_list
 
 
-class ReturnInstruction(Instruction):
+class ReturnInstruction(Node):
     def __init__(self, operations):
         self.operations = operations
 
 
-class Break(Instruction):
+class Break(Node):
     pass
 
 
-class Continue(Instruction):
+class Continue(Node):
     pass
 
 
-class Condition(Node):
-    pass
-
-
-class Operations(Condition):
-    pass
-
-
-class OperationsParentheses(Operations):
-    def __init__(self, operations):
-        self.operations = operations
-
-
-class BinExpr(Operations):
+class BinExpr(Node):
     def __init__(self, op, left, right):
         self.op = op
         self.left = left
@@ -94,6 +77,7 @@ class IntNum(Node):
 class FloatNum(Node):
     def __init__(self, value):
         self.value = value
+
 
 class String(Node):
     def __init__(self, value):
@@ -125,15 +109,6 @@ class Array(Node):
         self.inside_array = inside_array
 
 
-# class ArrayList(Node):
-#     def __init__(self, any_list, array):
-#         self.any_list = []
-#         if any_list:
-#             self.any_list += any_list
-#         if array:
-#             self.any_list.append(array)
-
-
 class OperationsList(Node):
     def __init__(self, operations_list, operations):
         self.operations_list = []
@@ -153,10 +128,6 @@ class Transposition(Node):
     def __init__(self, transposed):
         self.transposed = transposed
 
-
-# ...
-# fill out missing classes
-# ...
 
 class Error(Node):
     def __init__(self):

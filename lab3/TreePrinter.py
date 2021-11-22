@@ -79,10 +79,6 @@ class TreePrinter:
     def printTree(self, indent=0):
         TreePrinter.printRow(indent, "CONTINUE")
 
-    @addToClass(AST.OperationsParentheses)
-    def printTree(self, indent=0):
-        self.operations.printTree(indent)
-
     @addToClass(AST.BinExpr)
     def printTree(self, indent=0):
         TreePrinter.printRow(indent, self.op)
@@ -127,12 +123,6 @@ class TreePrinter:
         TreePrinter.printRow(indent, "VECTOR")
         self.inside_array.printTree(indent + 1)
 
-    # @addToClass(AST.ArrayList)
-    # def printTree(self, indent=0):
-    #     TreePrinter.printRow(indent, "VECTOR")
-    #     for some_list in self.any_list:
-    #         some_list.printTree(indent + 1)
-
     @addToClass(AST.OperationsList)
     def printTree(self, indent=0):
         for operations in self.operations_list:
@@ -153,6 +143,3 @@ class TreePrinter:
     def printTree(self, indent=0):
         pass
         # fill in the body
-
-    # define printTree for other classes
-    # ...

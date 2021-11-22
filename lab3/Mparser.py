@@ -21,18 +21,23 @@ precedence = (
     ('right', 'UMINUS'),
 )
 
+error_occurred = False
+
 
 def p_error(p):
+    global error_occurred
     if p:
         print("Syntax error at line {0}: LexToken({1}, '{2}')".format(p.lineno, p.type, p.value))
     else:
         print("Unexpected end of input")
+    error_occurred = True
 
 
 def p_program(p):
     """program : instructions"""
     p[0] = AST.Program(p[1])
-    p[0].printTree(0)
+    if not error_occurred:
+        p[0].printTree(0)
     # done
 
 
@@ -44,8 +49,6 @@ def p_instructions(p):
         p[0] = AST.Instructions(p[1], p[2])
     else:
         p[0] = AST.Instructions(None, None)
-
-    # done
 
 
 # Pojedyncza instrukcja
@@ -67,8 +70,6 @@ def p_instruction(p):
     else:
         p[0] = p[1]
 
-    # done
-
 
 # Operacje przypisania
 def p_assignments(p):
@@ -79,8 +80,6 @@ def p_assignments(p):
                     | identifier DIVISION_ASSIGN operations"""
     p[0] = AST.Assignment(p[2], p[1], p[3])
 
-    # done
-
 
 # Instrukcja warunkowa
 def p_instruction_if(p):
@@ -90,8 +89,6 @@ def p_instruction_if(p):
         p[0] = AST.IfInstruction(p[3], p[5], p[7])
     else:
         p[0] = AST.IfInstruction(p[3], p[5], None)
-
-    # done
 
 
 # Instrukcje pętli
@@ -104,15 +101,11 @@ def p_instruction_loop(p):
     else:
         p[0] = AST.WhileLoop(p[3], p[5])
 
-    # done
-
 
 # Instrukcja printa
 def p_instruction_print(p):
     """instruction_print : PRINT operations_list """
     p[0] = AST.PrintInstruction(p[2])
-
-    # done
 
 
 # Instrukcja return
@@ -124,15 +117,11 @@ def p_instruction_return(p):
     else:
         p[0] = AST.ReturnInstruction(None)
 
-    # done
-
 
 # Instrukcje warunkowe
 def p_condition(p):
     """condition : operations"""
     p[0] = p[1]
-
-    # done
 
 
 # Operacje binarne
@@ -154,16 +143,20 @@ def p_operations_binary(p):
                       | '(' operations ')'
                       | '(' operations ')' "'"
                       | array
+                      | array "'"
                       | value"""
 
     if p[1] == "(":
-        p[0] = AST.OperationsParentheses(p[2])
+        if len(p) == 5 and p[4] == "'":
+            p[0] = AST.Transposition(p[2])
+        else:
+            p[0] = p[2]
     elif len(p) == 4:
         p[0] = AST.BinExpr(p[2], p[1], p[3])
-    elif len(p) == 5:
-        p[0] = AST.Transposition(p[2])
+    elif len(p) == 3 and p[2] == "'":
+        p[0] = AST.Transposition(p[1])
     else:
-        p[0] = p[1]
+        p[0] = p[1]  # array / value
 
 
 # Uwzględnienie unarnego minusa
@@ -212,19 +205,8 @@ def p_identifier(p):
 
 # Tablica
 def p_array(p):
-    # """array : '[' array_list ']'
-    #         | '[' operations_list ']' """
     """array : '[' operations_list ']' """
     p[0] = AST.Array(p[2])
-
-
-# def p_array_list(p):
-#     """array_list : array_list ',' array
-#                     | array """
-#     if len(p) == 4:
-#         p[0] = AST.ArrayList(p[1], p[3])
-#     else:
-#         p[0] = p[1]
 
 
 def p_operations_list(p):
