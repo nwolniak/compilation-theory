@@ -11,13 +11,13 @@ tokens = scanner.tokens
 tokens.remove("COMMENT")  # Nie obsługujemy komentarzy, bo ich nie ma
 
 precedence = (
+    ('nonassoc', 'IFX'),
+    ('nonassoc', 'ELSE'),
     ("right", '=', "ADDITION_ASSIGN", "SUBTRACTION_ASSIGN", "MULTIPLICATION_ASSIGN", "DIVISION_ASSIGN"),
     ("nonassoc", "NOT_EQUAL", "EQUAL"),
     ("nonassoc", "LESS_OR_EQUAL", "GREATER_OR_EQUAL", '>', '<'),
     ("left", '+', '-', 'PLUS_MATRIX', 'MINUS_MATRIX'),
     ("left", '*', '/', 'MULTIPLY_MATRIX', 'DIVIDE_MATRIX'),
-    ('nonassoc', 'IFX'),
-    ('nonassoc', 'ELSE'),
     ('right', 'UMINUS'),
 )
 
@@ -140,16 +140,12 @@ def p_operations(p):
                       | operations MULTIPLY_MATRIX operations
                       | operations DIVIDE_MATRIX operations
                       | '(' operations ')'
-                      | '(' operations ')' "'"
+                      | operations "'"
                       | array
-                      | array "'"
                       | value"""
 
     if p[1] == "(":
-        if len(p) == 5 and p[4] == "'":
-            p[0] = AST.Transposition(p[2])
-        else:
-            p[0] = p[2]
+        p[0] = p[2]
     elif len(p) == 4:
         p[0] = AST.BinExpr(p[2], p[1], p[3])
     elif len(p) == 3 and p[2] == "'":
@@ -192,12 +188,9 @@ def p_value(p):
 # Identyfikatory
 def p_identifier(p):
     """identifier : ID
-                | identifier array
-                | identifier "'" """
+                | identifier array """
     if len(p) == 2:
         p[0] = AST.ID(p[1])
-    elif len(p) == 3 and p[2] == "'":
-        p[0] = AST.Transposition(p[1])
     else:
         p[0] = AST.Reference(p[1], p[2])
 
