@@ -31,37 +31,46 @@ def multi_dict(K):
     else:
         return defaultdict(lambda: multi_dict(K - 1))
 
+MatrixType = 'matrix'
+VectorType = 'vector'
+IntType = 'int'
+FloatType = 'float'
+StringType = 'string'
+
 # Generowanie tablicy typów i operacji
 def generate_ttype():
     ttype = multi_dict(3)
     # Float and int binops
     for op in ['+', '-', '*', '/']:
-        for t1 in ['float', 'int']:
-            for t2 in ['float', 'int']:
-                ttype[op][t1][t2] = 'int' if t1 == t2 == 'int' else 'float'
+        for t1 in [FloatType, IntType]:
+            for t2 in [FloatType, IntType]:
+                ttype[op][t1][t2] = IntType if t1 == t2 == IntType else FloatType
 
     # Matrix/vector mult/div by int/float
-    for t1 in ['matrix', 'vector']:
-        for t2 in ['float', 'int']:
+    for t1 in [MatrixType, VectorType]:
+        for t2 in [FloatType, IntType]:
             ttype['*'][t1][t2] = t1
             ttype['*'][t2][t1] = t1
             ttype['/'][t1][t2] = t1
 
     # Matrix by matrix mult
-    ttype['*']['matrix']['matrix'] = 'matrix'
-    ttype['*']['matrix']['vector'] = 'vector'
-    ttype['*']['vector']['matrix'] = 'vector'
+    ttype['*'][MatrixType][MatrixType] = MatrixType
+    ttype['*'][MatrixType][VectorType] = VectorType
+    ttype['*'][VectorType][MatrixType] = VectorType
 
     # Matrix and vector elem by elem ops
     for op in ['+', '-', '.+', '.-', '.*', './']:
-        for t in ['matrix', 'vector']:
+        for t in [MatrixType, VectorType]:
             ttype[op][t][t] = t
 
     # Conditions
     for op in ['>', '<', '==', '>=', '<=', '!=']:
-        for t1 in ['float', 'int']:
-            for t2 in ['float', 'int']:
-                ttype[op][t1][t2] = 'int'
+        for t1 in [FloatType, IntType]:
+            for t2 in [FloatType, IntType]:
+                ttype[op][t1][t2] = IntType
+                
+    # String mul
+    ttype['*'][StringType][IntType] = StringType
     return ttype
 
 ttype = generate_ttype()
@@ -71,12 +80,6 @@ undefined_size = sys.maxsize
 inside_loop = False
 # Słownik zmiennych w programie
 symbol_table = dict()
-
-MatrixType = 'matrix'
-VectorType = 'vector'
-IntType = 'int'
-FloatType = 'float'
-StringType = 'string'
 
 # Klasa typów w języku
 class Type:
@@ -196,7 +199,7 @@ class TypeChecker(NodeVisitor):
             type1 = self.visit(node.identifier)
             if type1.type is None or type2.type is None:
                 return
-            op = op[1]
+            op = op[0]
             result_type = type1.get_type(op, type2)
             if result_type.type is None:
                 node.error('invalid operation ' + op + ' between ' + str(type1) + ' and ' + str(type2))
