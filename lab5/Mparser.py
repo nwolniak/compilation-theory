@@ -102,11 +102,11 @@ def p_instruction_if(p):
 
 # Instrukcje pętli
 def p_instruction_loop(p):
-    """instruction_loop : FOR identifier '=' operations ':' operations instruction
+    """instruction_loop : FOR ID '=' operations ':' operations instruction
                         | WHILE '(' condition ')' instruction """
 
     if p[1] == "for":
-        p[0] = AST.ForLoop(p[2], p[4], p[6], p[7])
+        p[0] = AST.ForLoop(AST.ID(p[2]), p[4], p[6], p[7])
     else:
         p[0] = AST.WhileLoop(p[3], p[5])
     p[0].lineno = p.lexer.lineno

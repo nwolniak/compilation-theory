@@ -106,22 +106,38 @@ class Interpreter(object):
     def visit(self, node):
         x = self.visit(node.left)
         y = self.visit(node.right)
-        return {
-            '+': lambda: x + y,
-            '-': lambda: x - y,
-            '*': lambda: x * y,
-            '/': lambda: x / y,
-            '>': lambda: x > y,
-            '<': lambda: x < y,
-            '<=': lambda: x <= y,
-            '>=': lambda: x >= y,
-            '!=': lambda: x != y,
-            '==': lambda: x == y,
-            '.+': lambda: list(map(operator.add, x, y)),
-            '.-': lambda: list(map(operator.sub, x, y)),
-            '.*': lambda: list(map(operator.mul, x, y)),
-            './': lambda: list(map(operator.truediv, x, y))  # floordiv like //
-        }.get(node.op, lambda: None)()
+        arr2D = False
+        if isinstance(x, list):
+            if isinstance(x[0], list):
+                arr2D = True
+        if isinstance(y, list):
+            if isinstance(y[0], list):
+                arr2D = True
+
+        if arr2D:
+            return {
+                '.+': lambda: [list(map(operator.add, row_x, row_y)) for row_x, row_y in zip(x, y)],
+                '.-': lambda: [list(map(operator.sub, row_x, row_y)) for row_x, row_y in zip(x, y)],
+                '.*': lambda: [list(map(operator.mul, row_x, row_y)) for row_x, row_y in zip(x, y)],
+                './': lambda: [list(map(operator.truediv, row_x, row_y)) for row_x, row_y in zip(x, y)]
+            }.get(node.op, lambda: None)()
+        else:
+            return {
+                '+': lambda: x + y,
+                '-': lambda: x - y,
+                '*': lambda: x * y,
+                '/': lambda: x / y,
+                '>': lambda: x > y,
+                '<': lambda: x < y,
+                '<=': lambda: x <= y,
+                '>=': lambda: x >= y,
+                '!=': lambda: x != y,
+                '==': lambda: x == y,
+                '.+': lambda: list(map(operator.add, x, y)),
+                '.-': lambda: list(map(operator.sub, x, y)),
+                '.*': lambda: list(map(operator.mul, x, y)),
+                './': lambda: list(map(operator.truediv, x, y))  # floordiv like //
+            }.get(node.op, lambda: None)()
 
     @when(AST.UMinus)
     def visit(self, node):
