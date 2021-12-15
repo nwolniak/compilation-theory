@@ -1,6 +1,6 @@
 class Node(object):
     lineno = None
-
+    error_occurred = False
     def error(self, desc):
         print("Error at line " + str(self.lineno) + ": " + desc + ".")
 

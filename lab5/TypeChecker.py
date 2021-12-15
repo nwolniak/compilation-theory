@@ -237,18 +237,18 @@ class TypeChecker(NodeVisitor):
         global inside_loop
         # Zapisujemy stan jaki był przed wejściem do tej pętli
         pre_loop = inside_loop
-        inside_loop = Type()
+        inside_loop = True
         type2 = self.visit(node.start)
         type3 = self.visit(node.end)
         if type2.type != IntType or type3.type != IntType:
             node.start.error('for loop range bounds have to be integers')
-        old_id_type = symbol_table.get(node.id, None)
-        symbol_table[node.id] = Type(IntType)
+        old_id_type = symbol_table.get(node.id.name, None)
+        symbol_table[node.id.name] = Type(IntType)
         self.visit(node.instruction)
         if old_id_type is None:
-            del symbol_table[node.id]
+            del symbol_table[node.id.name]
         else:
-            symbol_table[node.id] = old_id_type
+            symbol_table[node.id.name] = old_id_type
         inside_loop = pre_loop
 
     def visit_WhileLoop(self, node):
