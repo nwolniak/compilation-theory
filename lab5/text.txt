@@ -19,12 +19,13 @@ for N = 5:10{
 }
 
 A = eye(10, 10);
-B = ones(10, 10);
-C = A*B;
-print C;
-#A = A*1.0;
-#A[7,3] = 5;
+# A = A*1.0;
+B = ones(8 + 2, 8 + 2);
+B *= A;
+print B;
+A[7,3] = 5 * B[1, 4];
 print A;
+print B;
 
 while (N < 15){
     print N;

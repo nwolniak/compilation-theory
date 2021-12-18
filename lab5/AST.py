@@ -1,8 +1,12 @@
+import TypeChecker
+
 class Node(object):
     lineno = None
 
     def error(self, desc):
+        TypeChecker.semantic_error = True
         print("Error at line " + str(self.lineno) + ": " + desc + ".")
+
 
 
 class Program(Node):
