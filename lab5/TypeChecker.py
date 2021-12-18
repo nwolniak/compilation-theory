@@ -52,7 +52,6 @@ def generate_ttype():
     for t1 in [MatrixType, VectorType]:
         for t2 in [FloatType, IntType]:
             ttype['*'][t1][t2] = t1
-            ttype['*'][t2][t1] = t1
             ttype['/'][t1][t2] = t1
 
     # Matrix by matrix mult
@@ -83,7 +82,7 @@ undefined_size = sys.maxsize
 inside_loop = False
 # Słownik zmiennych w programie
 symbol_table = dict()
-
+semantic_error = False
 
 # Klasa typów w języku
 class Type:
@@ -264,7 +263,8 @@ class TypeChecker(NodeVisitor):
         self.visit(node.children)
 
     def visit_ReturnInstruction(self, node):
-        self.visit(node.child)
+        if node.child is not None:
+            self.visit(node.child)
 
     def visit_Break(self, node):
         if not inside_loop:

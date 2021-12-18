@@ -5,6 +5,7 @@ import Mparser
 import scanner
 from TreePrinter import TreePrinter
 from TypeChecker import TypeChecker
+import TypeChecker as tc
 from Interpreter import Interpreter
 
 if __name__ == '__main__':
@@ -21,10 +22,12 @@ if __name__ == '__main__':
     text = file.read()
     ast = parser.parse(text, lexer=lexer)
 
-    # Below code shows how to use visitor
-    typeChecker = TypeChecker()
-    typeChecker.visit(ast)  # or alternatively ast.accept(typeChecker)
+    if not Mparser.error_occurred:
+        # Below code shows how to use visitor
+        typeChecker = TypeChecker()
+        typeChecker.visit(ast)  # or alternatively ast.accept(typeChecker)
 
-    interpreter = Interpreter()
-    res = interpreter.visit(ast)
-    print("Res : ", res)
+        if not tc.semantic_error:
+            interpreter = Interpreter()
+            res = interpreter.visit(ast)
+            print("Res : ", res)
