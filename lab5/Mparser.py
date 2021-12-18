@@ -36,8 +36,8 @@ def p_program(p):
     """program : instructions"""
     p[0] = AST.Program(p[1])
     p[0].lineno = p.lexer.lineno
-    if not error_occurred:
-        p[0].printTree(0)
+    # if not error_occurred:
+    #     p[0].printTree(0)
 
 
 # Instrukcje w programie
@@ -192,7 +192,7 @@ def p_value(p):
     elif p.slice[1].type == "FLOAT":
         p[0] = AST.FloatNum(p[1])
     else:
-        p[0] = AST.String(p[1])
+        p[0] = AST.String(p[1][1:-1])
     p[0].lineno = p.lexer.lineno
 
 

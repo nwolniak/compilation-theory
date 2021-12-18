@@ -21,10 +21,11 @@ if __name__ == '__main__':
     text = file.read()
     ast = parser.parse(text, lexer=lexer)
 
-    # Below code shows how to use visitor
-    typeChecker = TypeChecker()
-    typeChecker.visit(ast)  # or alternatively ast.accept(typeChecker)
+    if not Mparser.error_occurred:
+        # Below code shows how to use visitor
+        typeChecker = TypeChecker()
+        typeChecker.visit(ast)  # or alternatively ast.accept(typeChecker)
 
-    interpreter = Interpreter()
-    res = interpreter.visit(ast)
-    print("Res : ", res)
+        interpreter = Interpreter()
+        res = interpreter.visit(ast)
+        print("Res : ", res)

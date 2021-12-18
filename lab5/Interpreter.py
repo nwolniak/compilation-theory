@@ -19,12 +19,16 @@ class Interpreter(object):
 
     @when(AST.Program)
     def visit(self, node):
-        ret = self.visit(node.instructions)
+        ret = 0
+        try:
+            self.visit(node.instructions)
+        except ReturnValueException as e:
+            ret = e.value
+        except RuntimeException as e:
+            print("Runtime exception: " + e.description)
+            ret = -1
         print("Memory : ", self.memory.variables)
-        if ret:
-            return 0
-        else:
-            return -1
+        return ret
 
     @when(AST.Instructions)
     def visit(self, node):
@@ -34,10 +38,12 @@ class Interpreter(object):
     @when(AST.Assignment)
     def visit(self, node):
         identifier = node.identifier.name
-        identifier_value = self.visit(node.identifier)
         val = self.visit(node.operations)
+        if node.op == '=':
+            self.memory.put(identifier, val)
+            return
+        identifier_value = self.visit(node.identifier)
         return {
-            '=': lambda: self.memory.put(identifier, val),
             '+=': lambda: self.memory.put(identifier, identifier_value + val),
             '-=': lambda: self.memory.put(identifier, identifier_value - val),
             '*=': lambda: self.memory.put(identifier, identifier_value * val),
@@ -61,14 +67,9 @@ class Interpreter(object):
             self.memory.put(identifier, i)
             try:
                 self.visit(node.instruction)
-            except ReturnValueException as ret:
-                print("Return value : ", ret.value)
-                return ret.value
             except BreakException:
-                print("Break")
                 break
             except ContinueException:
-                print("Continue")
                 continue
 
     @when(AST.WhileLoop)
@@ -76,23 +77,20 @@ class Interpreter(object):
         while self.visit(node.condition):
             try:
                 self.visit(node.instruction)
-            except ReturnValueException as ret:
-                print("Return value : ", ret.value)
-                return ret.value
             except BreakException:
-                print("Break")
                 break
             except ContinueException:
-                print("Continue")
                 continue
 
     @when(AST.PrintInstruction)
     def visit(self, node):
-        print(",".join([str(x) for x in self.visit(node.children)]))
+        print(*[x for x in self.visit(node.children)])
 
     @when(AST.ReturnInstruction)
     def visit(self, node):
-        raise ReturnValueException(self.visit(node.child))
+        if node.child is not None:
+            raise ReturnValueException(self.visit(node.child))
+        raise ReturnValueException(0)
 
     @when(AST.Break)
     def visit(self, node):
@@ -159,29 +157,29 @@ class Interpreter(object):
     def visit(self, node):
         shape = self.visit(node.values)
         if len(shape) == 1:
-            return [0 for _ in range(shape[0])]
-        else:
-            return [[0 for _ in range(shape[1])] for _ in range(shape[0])]
+            shape.append(shape[0])
+        return [[0 for _ in range(shape[1])] for _ in range(shape[0])]
 
     @when(AST.Ones)
     def visit(self, node):
         shape = self.visit(node.values)
         if len(shape) == 1:
-            return [1 for _ in range(shape[0])]
-        else:
-            return [[0 for _ in range(shape[1])] for _ in range(shape[0])]
+            shape.append(shape[0])
+        return [[1 for _ in range(shape[1])] for _ in range(shape[0])]
 
     @when(AST.Eye)
     def visit(self, node):
         shape = self.visit(node.values)
+        if len(shape) == 1:
+            shape.append(shape[0])
         return [[1 if i == j else 0 for i in range(shape[1])] for j in range(shape[0])]
 
     @when(AST.ID)
     def visit(self, node):
-        r = node.name
-        if self.memory.get(r) is not None:
-            r = self.memory.get(r)
-        return r
+        id_name = node.name
+        if self.memory.get(id_name) is None:
+            raise RuntimeException("undeclared identifier " + id_name + " at line " + str(node.lineno))
+        return self.memory.get(id_name)
 
     @when(AST.Array)
     def visit(self, node):
@@ -203,7 +201,12 @@ class Interpreter(object):
     @when(AST.Reference)
     def visit(self, node):
         idxs_list = self.visit(node.reference)
+        var = self.memory.get(node.name)
+        if len(var) < idxs_list[0]:
+            raise RuntimeException("invalid reference to " + node.name + " at line " + str(node.lineno))
         if len(idxs_list) == 1:
-            return self.memory.get(node.name)[idxs_list[0]]
+            return var[idxs_list[0]]
         else:
-            return self.memory.get(node.name)[idxs_list[0]][idxs_list[1]]
+            if len(var[idxs_list[0]]) < idxs_list[1]:
+                raise RuntimeException("invalid reference to " + node.name + " at line " + str(node.lineno))
+            return var[idxs_list[0]][idxs_list[1]]

@@ -264,7 +264,8 @@ class TypeChecker(NodeVisitor):
         self.visit(node.children)
 
     def visit_ReturnInstruction(self, node):
-        self.visit(node.child)
+        if node.child is not None:
+            self.visit(node.child)
 
     def visit_Break(self, node):
         if not inside_loop:
