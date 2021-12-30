@@ -53,7 +53,8 @@ matrix_mul = lambda x, y: list(map(list, numpy.matmul(x, y)))
 class Interpreter(object):
 
     def __init__(self):
-        self.memory = Memory()
+        self.memory_global = Memory('global')
+        self.memory_stack = MemoryStack(self.memory_global)
 
     # Oblicza wynik operacji binarnej op między x i y
     def bin_op(self, op, x, y):
@@ -92,7 +93,7 @@ class Interpreter(object):
         except RuntimeException as e:
             print("Runtime exception: " + e.description)
             ret = -1
-        print("Memory : ", self.memory.variables)
+        print("Global memory: ", self.memory_global.variables)
         return ret
 
     @when(AST.Instructions)
@@ -111,7 +112,7 @@ class Interpreter(object):
             except Exception:
                 raise RuntimeException(node.op + " operation error at line " + str(node.lineno))
         if isinstance(node.identifier, AST.Reference):
-            id_mem = self.memory.get(identifier)
+            id_mem = self.memory_stack.get(identifier)
             idxs = node.identifier.reference.children
             if len(idxs) == 1:
                 if len(val) != len(id_mem[idxs[0].value]):
@@ -119,16 +120,27 @@ class Interpreter(object):
                 id_mem[idxs[0].value] = val
             else:
                 id_mem[idxs[0].value][idxs[1].value] = val
-            self.memory.put(identifier, id_mem)
-        else:
-            self.memory.put(identifier, val)
+            self.memory_stack.set(identifier, id_mem)
+            return
+        if node.op == '=':
+            # Insert in the closest scope
+            self.memory_stack.insert(identifier, val)
+            return
+        self.memory_stack.set(identifier, val)
 
     @when(AST.IfInstruction)
     def visit(self, node):
-        if self.visit(node.condition):
-            return self.visit(node.if_instruction)
-        elif node.else_instruction is not None:
-            return self.visit(node.else_instruction)
+        try:
+            self.memory_stack.push(Memory('if'))
+            if self.visit(node.condition):
+                self.visit(node.if_instruction)
+            elif node.else_instruction is not None:
+                self.visit(node.else_instruction)
+            self.memory_stack.pop()
+        except (BreakException, ContinueException) as e:
+            # Have to remove if's scope after calling break or continue from inside
+            self.memory_stack.pop()
+            raise e
 
     @when(AST.ForLoop)
     def visit(self, node):
@@ -137,23 +149,31 @@ class Interpreter(object):
         end_range = self.visit(node.end)
 
         for i in range(start_range, end_range):
-            self.memory.put(identifier, i)
+            self.memory_stack.push(Memory('for'))
+            self.memory_stack.set(identifier, i)
             try:
                 self.visit(node.instruction)
             except BreakException:
+                self.memory_stack.pop()
                 break
             except ContinueException:
+                self.memory_stack.pop()
                 continue
+            self.memory_stack.pop()
 
     @when(AST.WhileLoop)
     def visit(self, node):
         while self.visit(node.condition):
+            self.memory_stack.push(Memory('while'))
             try:
                 self.visit(node.instruction)
             except BreakException:
+                self.memory_stack.pop()
                 break
             except ContinueException:
+                self.memory_stack.pop()
                 continue
+            self.memory_stack.pop()
 
     @when(AST.PrintInstruction)
     def visit(self, node):
@@ -222,9 +242,10 @@ class Interpreter(object):
     @when(AST.ID)
     def visit(self, node):
         id_name = node.name
-        if self.memory.get(id_name) is None:
+        value = self.memory_stack.get(id_name)
+        if value is None:
             raise RuntimeException("undeclared identifier " + id_name + " at line " + str(node.lineno))
-        return self.memory.get(id_name)
+        return value
 
     @when(AST.Array)
     def visit(self, node):
@@ -246,12 +267,12 @@ class Interpreter(object):
     @when(AST.Reference)
     def visit(self, node):
         idxs_list = self.visit(node.reference)
-        var = self.memory.get(node.name)
-        if len(var) < idxs_list[0]:
+        value = self.visit(AST.ID(node.name))
+        if len(value) < idxs_list[0]:
             raise RuntimeException("invalid reference to " + node.name + " at line " + str(node.lineno))
         if len(idxs_list) == 1:
-            return var[idxs_list[0]]
+            return value[idxs_list[0]]
         else:
-            if len(var[idxs_list[0]]) < idxs_list[1]:
+            if len(value[idxs_list[0]]) < idxs_list[1]:
                 raise RuntimeException("invalid reference to " + node.name + " at line " + str(node.lineno))
-            return var[idxs_list[0]][idxs_list[1]]
+            return value[idxs_list[0]][idxs_list[1]]

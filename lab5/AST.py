@@ -132,7 +132,6 @@ class OperationsList(Node):
 
 class Reference(Node):
     def __init__(self, identifier, reference):
-        print("JOOOOOOOOOOOOOOOOO")
         self.name = identifier
         self.reference = reference
 
