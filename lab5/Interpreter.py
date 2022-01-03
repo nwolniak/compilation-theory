@@ -122,10 +122,7 @@ class Interpreter(object):
                 id_mem[idxs[0].value][idxs[1].value] = val
             self.memory_stack.set(identifier, id_mem)
             return
-        if node.op == '=':
-            # Insert in the closest scope
-            self.memory_stack.insert(identifier, val)
-            return
+        # Insert value in it's scope or creates new variable in the closest scope
         self.memory_stack.set(identifier, val)
 
     @when(AST.IfInstruction)
