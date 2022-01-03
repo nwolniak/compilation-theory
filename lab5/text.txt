@@ -1,13 +1,11 @@
 N = 10;
 X = 1 <= 2;
+
 if(3 < 2)
     x = 2;
 else
     y = 2;
-if (4 > 2 + 1)
-    print 1;
-else
-    print 0;
+# print y;
 
 for N = 5:10{
     print N;
@@ -17,23 +15,23 @@ for N = 5:10{
     }
 }
 
-A = eye(10, 10);
+# A = eye(10, 10);
 # A = A*1.0;
-B = ones(8 + 2, 8 + 2);
-B *= A;
-print B;
-A[7,3] = 5 * B[1, 4];
-print A;
-print B;
+# B = ones(8 + 2, 8 + 2);
+# B *= A;
+# print B;
+# A[7,3] = 5 * B[1, 4];
+# print A;
+# print B;
 
-while (N < 15){
-    print N;
-    N += 1;
-    return N;
-}
+# while (N < 15){
+#     print N;
+#     N += 1;
+#     return N;
+# }
 
-A = [[1,2,3]];
-B = A[0];
-C = A';
+# A = [[1,2,3]];
+# B = A[0];
+# C = A';
 
-print A, B, C;
+# print A, B, C;
